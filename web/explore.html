@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore Artists - Stamp</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="/styles/retro.css">
+    <style>
+        /* Enhanced styling for explore page */
+        .intro-section {
+            text-align: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 1rem 2rem 1rem;  /* Increased top padding */
+        }
+        
+        .filter-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.75rem;
+            margin: 3rem 0;  /* Added margin top and bottom */
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        
+        .filter-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--light);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .filter-btn.active {
+            background: var(--neon-blue);
+            color: var(--dark);
+        }
+        
+        .artists-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2.5rem;
+            margin: 2rem auto;
+            padding: 0 2rem;
+            max-width: 1400px;
+        }
+        
+        .artist-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            padding: 2rem 1.5rem;  /* Increased padding */
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .artist-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .artist-image {
+            width: 180px;  /* Fixed width */
+            height: 180px;  /* Fixed height */
+            border-radius: 50%;  /* Make it circular */
+            background-size: cover;
+            background-position: center;
+            margin: 0 auto 1.5rem auto;  /* Center image and add bottom margin */
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .artist-card:hover .artist-image {
+            border-color: var(--neon-blue);
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(77, 238, 234, 0.3);
+        }
+        
+        .artist-info {
+            padding: 0.5rem;
+        }
+        
+        .artist-info h3 {
+            margin: 0 0 1rem 0;
+            font-size: 1.4rem;
+            color: var(--light);
+        }
+        
+        .artist-genres {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            justify-content: center;
+        }
+        
+        .artist-genre {
+            font-size: 0.85rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+        
+        .artist-stats {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .artist-stats span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .artist-stats i {
+            color: var(--neon-blue);
+            font-size: 1.1rem;
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 3rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+
+        .scroll-top-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--neon-blue);
+            color: var(--dark);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            pointer-events: none;
+            box-shadow: 0 0 15px var(--neon-blue);
+        }
+
+        .scroll-top-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 25px var(--neon-blue);
+        }
+
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+
+            .filter-container {
+                padding: 0.5rem;
+            }
+
+            .filter-btn {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.9rem;
+            }
+
+            .artists-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 1.5rem;
+                padding: 0 0.5rem;
+            }
+
+            .scroll-top-btn {
+                bottom: 1rem;
+                right: 1rem;
+                width: 40px;
+                height: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="top-header">
+        <div class="header-container">
+            <div class="header-left">
+                <a href="index.html" class="home-link">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+                <span id="user-welcome"></span>
+            </div>
+            <div class="header-right">
+                <button class="login-btn" id="loginButton" onclick="window.location.href='login.html'">Sign Up / Login</button>
+                <button class="login-btn" id="dashboardButton" onclick="window.location.href='dashboard.html'" style="display: none;">Dashboard</button>
+            </div>
+        </div>
+    </header>
+
+    <div id="matrix-banner" class="nineties-banner" style="display: none;">
+        *** 90s MODE ACTIVATED ***
+    </div>
+
+    <div class="page-header">
+        <h1>Explore Artists</h1>
+    </div>
+
+    <div class="page-content">
+        <section class="intro-section">
+            <h2>Discover New Music</h2>
+            <p>Explore our diverse community of independent artists across all genres.</p>
+            
+            <div class="filter-container">
+                <button class="filter-btn active" data-genre="all">All Genres</button>
+                <button class="filter-btn" data-genre="electronic">Electronic</button>
+                <button class="filter-btn" data-genre="hiphop">Hip Hop</button>
+                <button class="filter-btn" data-genre="rock">Rock</button>
+                <button class="filter-btn" data-genre="jazz">Jazz</button>
+                <button class="filter-btn" data-genre="classical">Classical</button>
+                <button class="filter-btn" data-genre="pop">Pop</button>
+                <button class="filter-btn" data-genre="folk">Folk</button>
+                <button class="filter-btn" data-genre="ambient">Ambient</button>
+                <button class="filter-btn" data-genre="rnb">R&B</button>
+                <button class="filter-btn" data-genre="metal">Metal</button>
+                <button class="filter-btn" data-genre="indie">Indie</button>
+            </div>
+            
+            <div id="artistsGrid" class="artists-grid"></div>
+            <div id="noResults" class="no-results" style="display: none;">
+                <p>No artists found matching this genre. Try another filter.</p>
+            </div>
+        </section>
+
+        <div class="return-home-container">
+            <a href="index.html" class="return-home-link"><i class="fas fa-arrow-left"></i> Return to Home</a>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Company</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="press.html">Press</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="help.html">Help Center</a></li>
+                    <li><a href="artist-guide.html">Artist Guide</a></li>
+                    <li><a href="fan-guide.html">Fan Guide</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="terms.html">Terms of Service</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="copyright.html">Copyright Info</a></li>
+                    <li><a href="cookies.html">Cookie Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Connect</h3>
+                <div class="social-links">
+                    <a href="https://twitter.com/stampfm" target="_blank"><i class="fab fa-twitter"></i></a>
+                    <a href="https://instagram.com/stampfm" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://facebook.com/stampfm" target="_blank"><i class="fab fa-facebook"></i></a>
+                    <a href="https://discord.gg/stampfm" target="_blank"><i class="fab fa-discord"></i></a>
+                </div>
+                <div class="retro-mode">
+                    <a href="#" onclick="toggle90sMode(); return false;">💾 🤍 The 90s</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="/js/colors.js"></script>
+    <script type="module" src="/js/retro.js"></script>
+    <script>
+        // Add these at the very top of your script tag, before any functions
+        console.log('Script starting...');
+        console.log('Initial URL:', window.location.href);
+        console.log('Initial search params:', window.location.search);
+
+        // Sample artist data
+        const artists = [
+            {
+                name: "Luna Echo",
+                genres: ["electronic", "ambient"],
+                image: "https://images.unsplash.com/photo-1516280440614-37939bbacd81?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                followers: 12453,
+                tracks: 28
+            },
+            {
+                name: "Midnight Pulse",
+                genres: ["electronic", "indie"],
+                image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                followers: 8765,
+                tracks: 15
+            },
+            {
+                name: "Rhythm Collective",
+                genres: ["hiphop", "jazz"],
+                image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                followers: 23456,
+                tracks: 42
+            },
+            {
+                name: "Sonic Wave",
+                genres: ["rock", "indie"],
+                image: "https://images.unsplash.com/photo-1498038432885-c6f3f1b912ee?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                followers: 15678,
+                tracks: 31
+            },
+            {
+                name: "Velvet Harmony",
+                genres: ["jazz", "rnb"],
+                image: "https://images.unsplash.com/photo-1511192336575-5a79af67a629?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                followers: 9876,
+                tracks: 19
+            },
+            {
+                name: "Urban Echoes",
+                genres: ["hiphop", "rnb"],
+                image: "https://images.unsplash.com/photo-1547592180-85f173990554?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                followers: 31245,
+                tracks: 37
+            },
+            {
+                name: "Acoustic Dreams",
+                genres: ["folk", "indie"],
+                image: "https://images.unsplash.com/photo-1485579149621-3123dd979885?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                followers: 7654,
+                tracks: 22
+            },
+            {
+                name: "Ethereal Soundscape",
+                genres: ["ambient", "electronic"],
+                image: "https://images.unsplash.com/photo-1518609878373-06d740f60d8b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                followers: 5432,
+                tracks: 14
+            },
+            {
+                name: "Crystal Tones",
+                genres: ["pop", "electronic"],
+                image: "https://images.unsplash.com/photo-1501386761578-eac5c94b800a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                followers: 43210,
+                tracks: 45
+            },
+            {
+                name: "Harmonic Fusion",
+                genres: ["jazz", "classical"],
+                image: "https://images.unsplash.com/photo-1507838153414-b4b713384a76?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                followers: 8765,
+                tracks: 26
+            },
+            {
+                name: "Metal Mayhem",
+                genres: ["metal", "rock"],
+                image: "https://images.unsplash.com/photo-1508252592163-5d3c3c559404?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                followers: 19876,
+                tracks: 33
+            },
+            {
+                name: "Neon Beats",
+                genres: ["electronic", "pop"],
+                image: "https://images.unsplash.com/photo-1571330735066-03aaa9429d89?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                followers: 25678,
+                tracks: 29
+            },
+            {
+                name: "Lyrical Flow",
+                genres: ["hiphop", "rnb"],
+                image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                followers: 34567,
+                tracks: 41
+            },
+            {
+                name: "Acoustic Reverie",
+                genres: ["folk", "indie"],
+                image: "https://images.unsplash.com/photo-1485579149621-3123dd979885?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                followers: 12345,
+                tracks: 24
+            },
+            {
+                name: "Electric Soul",
+                genres: ["rnb", "electronic"],
+                image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                followers: 28765,
+                tracks: 36
+            },
+            {
+                name: "Melodic Drift",
+                genres: ["ambient", "classical"],
+                image: "https://images.unsplash.com/photo-1518609878373-06d740f60d8b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                followers: 7654,
+                tracks: 18
+            },
+            {
+                name: "Rhythmic Pulse",
+                genres: ["electronic", "hiphop"],
+                image: "https://images.unsplash.com/photo-1571330735066-03aaa9429d89?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                followers: 19876,
+                tracks: 27
+            },
+            {
+                name: "Sonic Architects",
+                genres: ["rock", "ambient"],
+                image: "https://images.unsplash.com/photo-1498038432885-c6f3f1b912ee?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                followers: 15432,
+                tracks: 32
+            },
+            {
+                name: "Harmonic Waves",
+                genres: ["classical", "ambient"],
+                image: "https://images.unsplash.com/photo-1507838153414-b4b713384a76?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                followers: 9876,
+                tracks: 21
+            },
+            {
+                name: "Urban Legends",
+                genres: ["hiphop", "rock"],
+                image: "https://images.unsplash.com/photo-1547592180-85f173990554?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                followers: 32145,
+                tracks: 38
+            },
+            {
+                name: "Indie Dreamers",
+                genres: ["indie", "folk"],
+                image: "https://images.unsplash.com/photo-1499364615650-ec38552f4f34?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                followers: 14325,
+                tracks: 25
+            },
+            {
+                name: "Jazz Fusion",
+                genres: ["jazz", "electronic"],
+                image: "https://images.unsplash.com/photo-1511192336575-5a79af67a629?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                followers: 8765,
+                tracks: 19
+            },
+            {
+                name: "Melodic Metal",
+                genres: ["metal", "rock"],
+                image: "https://images.unsplash.com/photo-1508252592163-5d3c3c559404?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                followers: 21543,
+                tracks: 34
+            },
+            {
+                name: "Pop Sensations",
+                genres: ["pop", "rnb"],
+                image: "https://images.unsplash.com/photo-1501386761578-eac5c94b800a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                followers: 45678,
+                tracks: 47
+            },
+            {
+                name: "Folk Tales",
+                genres: ["folk", "indie"],
+                image: "https://images.unsplash.com/photo-1485579149621-3123dd979885?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                followers: 11234,
+                tracks: 23
+            },
+            {
+                name: "Classical Remix",
+                genres: ["classical", "electronic"],
+                image: "https://images.unsplash.com/photo-1507838153414-b4b713384a76?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                followers: 7654,
+                tracks: 16
+            },
+            {
+                name: "Ambient Reflections",
+                genres: ["ambient", "classical"],
+                image: "https://images.unsplash.com/photo-1518609878373-06d740f60d8b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                followers: 6543,
+                tracks: 15
+            },
+            {
+                name: "Rock Revolution",
+                genres: ["rock", "indie"],
+                image: "https://images.unsplash.com/photo-1498038432885-c6f3f1b912ee?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                followers: 23456,
+                tracks: 35
+            },
+            {
+                name: "Hip-Hop Heroes",
+                genres: ["hiphop", "rnb"],
+                image: "https://images.unsplash.com/photo-1547592180-85f173990554?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                followers: 34567,
+                tracks: 42
+            },
+            {
+                name: "Electronic Dreams",
+                genres: ["electronic", "ambient"],
+                image: "https://images.unsplash.com/photo-1571330735066-03aaa9429d89?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                followers: 18765,
+                tracks: 28
+            }
+        ];
+
+        // Function to render artists
+        function renderArtists(filteredArtists) {
+            const artistsGrid = document.getElementById('artistsGrid');
+            const noResults = document.getElementById('noResults');
+            
+            // Clear the grid
+            artistsGrid.innerHTML = '';
+            
+            if (filteredArtists.length === 0) {
+                artistsGrid.style.display = 'none';
+                noResults.style.display = 'block';
+                return;
+            }
+            
+            artistsGrid.style.display = 'grid';
+            noResults.style.display = 'none';
+            
+            // Render each artist
+            filteredArtists.forEach(artist => {
+                const artistCard = document.createElement('div');
+                artistCard.className = 'artist-card';
+                
+                const genresHTML = artist.genres.map(genre => 
+                    `<span class="artist-genre">${genre}</span>`
+                ).join('');
+                
+                artistCard.innerHTML = `
+                    <div class="artist-image" style="background-image: url('${artist.image}')"></div>
+                    <div class="artist-info">
+                        <h3>${artist.name}</h3>
+                        <div class="artist-genres">
+                            ${genresHTML}
+                        </div>
+                        <div class="artist-stats">
+                            <span><i class="fas fa-users"></i> ${artist.followers.toLocaleString()} fans</span>
+                            <span><i class="fas fa-music"></i> ${artist.tracks} tracks</span>
+                        </div>
+                    </div>
+                `;
+                
+                artistsGrid.appendChild(artistCard);
+            });
+        }
+        
+        // Function to filter artists by genre
+        function filterArtists(genre) {
+            if (genre === 'all') {
+                return artists;
+            }
+            
+            return artists.filter(artist => 
+                artist.genres.includes(genre)
+            );
+        }
+        
+        // Function to reset filters
+        function resetFilters() {
+            const allButton = document.querySelector('.filter-btn[data-genre="all"]');
+            if (allButton) {
+                allButton.click();
+            }
+        }
+        
+        // Function to initialize the page
+        function initPage() {
+            // Get genre from URL parameter
+            const urlParams = new URLSearchParams(window.location.search);
+            const genreParam = urlParams.get('genre');
+            
+            console.log('URL:', window.location.href);
+            console.log('Search params:', window.location.search);
+            console.log('Genre param:', genreParam);
+            
+            // Add event listeners for URL changes
+            window.addEventListener('popstate', (event) => {
+                console.log('URL changed:', window.location.href);
+                console.log('State:', event.state);
+            });
+            
+            // Set up filter buttons
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            console.log('Available genres:', Array.from(filterButtons).map(btn => btn.getAttribute('data-genre')));
+            
+            // First, reset all buttons
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            
+            // If we have a genre parameter, find and activate that button
+            if (genreParam) {
+                console.log('Looking for genre:', genreParam);
+                const targetButton = document.querySelector(`.filter-btn[data-genre="${genreParam}"]`);
+                console.log('Found button:', targetButton);
+                
+                if (targetButton) {
+                    targetButton.classList.add('active');
+                    const filteredArtists = filterArtists(genreParam);
+                    console.log(`Found ${filteredArtists.length} artists for genre ${genreParam}`);
+                    renderArtists(filteredArtists);
+                } else {
+                    console.log('No matching button found, defaulting to All');
+                    document.querySelector('.filter-btn[data-genre="all"]').classList.add('active');
+                    renderArtists(artists);
+                }
+            } else {
+                console.log('No genre parameter provided, showing all artists');
+                document.querySelector('.filter-btn[data-genre="all"]').classList.add('active');
+                renderArtists(artists);
+            }
+            
+            // Add click handlers to all buttons
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Update active button
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Filter and render artists
+                    const genre = this.getAttribute('data-genre');
+                    const filteredArtists = filterArtists(genre);
+                    renderArtists(filteredArtists);
+                    
+                    // Update URL without reloading page
+                    const url = new URL(window.location);
+                    if (genre === 'all') {
+                        url.searchParams.delete('genre');
+                    } else {
+                        url.searchParams.set('genre', genre);
+                    }
+                    window.history.pushState({}, '', url);
+                });
+            });
+        }
+        
+        // Standard authentication and 90s mode scripts
+        function checkAuth() {
+            const token = localStorage.getItem('authToken');
+            const user = JSON.parse(localStorage.getItem('user') || '{}');
+            const loginButton = document.getElementById('loginButton');
+            const dashboardButton = document.getElementById('dashboardButton');
+            const welcomeSpan = document.getElementById('user-welcome');
+    
+            if (token && user && user.name) {
+                loginButton.style.display = 'none';
+                dashboardButton.style.display = 'block';
+                welcomeSpan.textContent = `Welcome, ${user.name}`;
+            } else {
+                loginButton.style.display = 'block';
+                dashboardButton.style.display = 'none';
+                welcomeSpan.textContent = '';
+            }
+        }
+    
+        function logout() {
+            localStorage.removeItem('authToken');
+            localStorage.removeItem('user');
+            checkAuth();
+            window.location.href = 'index.html';
+        }
+    
+        function toggle90sMode() {
+            const body = document.body;
+            body.classList.toggle('nineties-mode');
+            
+            document.querySelectorAll('.nineties-gif, .nineties-gif-container').forEach(el => el.remove());
+            
+            const matrixBanner = document.getElementById('matrix-banner');
+            if (body.classList.contains('nineties-mode')) {
+                matrixBanner.style.display = 'block';
+                
+                setTimeout(() => {
+                    matrixBanner.style.display = 'none';
+                }, 3000);
+            } else {
+                matrixBanner.style.display = 'none';
+            }
+        }
+
+        // Add some visual effects
+        function addVisualEffects() {
+            // Add hover effect to artist cards
+            const artistCards = document.querySelectorAll('.artist-card');
+            artistCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px) scale(1.02)';
+                    this.style.boxShadow = '0 15px 30px rgba(0, 0, 0, 0.2), 0 0 15px var(--neon-blue), 0 0 30px rgba(77, 238, 234, 0.3)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = '';
+                    this.style.boxShadow = '';
+                });
+            });
+
+            // Add smooth scroll to top button
+            const scrollButton = document.createElement('button');
+            scrollButton.className = 'scroll-top-btn';
+            scrollButton.innerHTML = '<i class="fas fa-arrow-up"></i>';
+            document.body.appendChild(scrollButton);
+
+            scrollButton.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+            // Show/hide scroll button based on scroll position
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    scrollButton.style.opacity = '1';
+                    scrollButton.style.pointerEvents = 'auto';
+                } else {
+                    scrollButton.style.opacity = '0';
+                    scrollButton.style.pointerEvents = 'none';
+                }
+            });
+        }
+
+        // Add multiple initialization points to check timing
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('DOMContentLoaded event fired');
+            console.log('URL at DOMContentLoaded:', window.location.href);
+            checkAuth();
+            initPage();
+            addVisualEffects();
+        });
+
+        window.addEventListener('load', () => {
+            console.log('Window load event fired');
+            console.log('URL at window.load:', window.location.href);
+        });
+
+        // Check for any redirects
+        const navEntry = performance.getEntriesByType('navigation')[0];
+        if (navEntry) {
+            console.log('Navigation type:', navEntry.type);
+            console.log('Redirect count:', navEntry.redirectCount);
+        }
+
+        // Also listen for hash changes
+        window.addEventListener('hashchange', initPage);
+    </script>
+</body>
+</html> 

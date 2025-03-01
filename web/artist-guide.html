@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artist Guide - Stamp</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="/styles/retro.css">
+</head>
+<body>
+    <header class="top-header">
+        <div class="header-container">
+            <div class="header-left">
+                <a href="index.html" class="home-link">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+                <span id="user-welcome"></span>
+            </div>
+            <div class="header-right">
+                <button class="login-btn" id="loginButton" onclick="window.location.href='login.html'">Sign Up / Login</button>
+                <button class="login-btn" id="logoutButton" onclick="logout()" style="display: none;">Logout</button>
+                <button class="secret-btn" onclick="toggle90sMode()">💾</button>
+            </div>
+        </div>
+    </header>
+
+    <div id="matrix-banner" class="nineties-banner" style="display: none;">
+        *** 90s MODE ACTIVATED ***
+    </div>
+
+    <div class="page-header">
+        <h1>Artist Guide</h1>
+    </div>
+
+    <div class="page-content">
+        <section class="guide-intro">
+            <h2>Welcome to Stamp</h2>
+            <p>This guide will help you make the most of your experience as an artist on Stamp. We've designed our platform to empower you with the tools, resources, and community you need to build a sustainable career on your own terms.</p>
+            
+            <div class="cta-box">
+                <h3>Ready to get started?</h3>
+                <p>Join thousands of artists who are taking control of their music careers.</p>
+                <a href="#artist-signup" class="btn">Join the waiting list</a>
+            </div>
+        </section>
+        
+        <section class="guide-section">
+            <h2>Getting Started</h2>
+            
+            <div class="guide-step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>Create Your Artist Profile</h3>
+                    <p>Your profile is your home base on Stamp. Make it stand out with high-quality images, a compelling bio, and links to your social media.</p>
+                    <div class="tip-box">
+                        <h4>Pro Tip</h4>
+                        <p>Use a professional profile photo and cover image that represent your brand. Your bio should tell your story in an authentic way that connects with potential fans.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="guide-step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>Upload Your Music</h3>
+                    <p>Share your tracks with the world. Stamp supports high-quality audio formats to ensure your music sounds its best.</p>
+                    <div class="tip-box">
+                        <h4>Pro Tip</h4>
+                        <p>Upload in WAV or FLAC format for the best sound quality. Add compelling artwork and detailed track information to help your music stand out.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="guide-step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>Set Up Your Revenue Streams</h3>
+                    <p>Configure how you want to monetize your music. Options include streaming, direct support, subscriptions, and merchandise.</p>
+                    <div class="tip-box">
+                        <h4>Pro Tip</h4>
+                        <p>Diversify your revenue streams. Many successful artists on Stamp earn from a combination of streaming, fan subscriptions, and direct support.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="guide-step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <h3>Connect With Your Community</h3>
+                    <p>Engage with fans through updates, exclusive content, and direct messaging. Building relationships is key to success on Stamp.</p>
+                    <div class="tip-box">
+                        <h4>Pro Tip</h4>
+                        <p>Respond to comments and messages promptly. Share behind-the-scenes content and updates about your creative process to keep fans engaged.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="guide-section">
+            <h2>Building Your Audience</h2>
+            
+            <div class="strategy-grid">
+                <div class="strategy-card">
+                    <i class="fas fa-calendar-alt"></i>
+                    <h3>Consistent Releases</h3>
+                    <p>Regular releases keep your audience engaged and help you stay relevant in the algorithm.</p>
+                </div>
+                
+                <div class="strategy-card">
+                    <i class="fas fa-users"></i>
+                    <h3>Community Engagement</h3>
+                    <p>Respond to comments, host Q&A sessions, and make your fans feel valued.</p>
+                </div>
+                
+                <div class="strategy-card">
+                    <i class="fas fa-lock"></i>
+                    <h3>Exclusive Content</h3>
+                    <p>Offer special perks to your subscribers, like early access to new music or behind-the-scenes content.</p>
+                </div>
+                
+                <div class="strategy-card">
+                    <i class="fas fa-share-alt"></i>
+                    <h3>Cross-Promotion</h3>
+                    <p>Collaborate with other artists on Stamp to reach new audiences and create exciting content.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="guide-section">
+            <h2>Monetization Options</h2>
+            
+            <div class="monetization-options">
+                <div class="monetization-option">
+                    <h3>Streaming Revenue</h3>
+                    <p>Earn from every stream of your music. Stamp pays significantly higher rates than traditional streaming platforms.</p>
+                    <ul>
+                        <li>85% of streaming revenue goes directly to artists</li>
+                        <li>Transparent payment structure</li>
+                        <li>Monthly payouts with detailed analytics</li>
+                    </ul>
+                </div>
+                
+                <div class="monetization-option">
+                    <h3>Fan Subscriptions</h3>
+                    <p>Offer subscription tiers to your most dedicated fans in exchange for exclusive benefits.</p>
+                    <ul>
+                        <li>Set your own subscription prices</li>
+                        <li>Offer different tiers with varying perks</li>
+                        <li>Create a stable monthly income</li>
+                    </ul>
+                </div>
+                
+                <div class="monetization-option">
+                    <h3>Direct Support</h3>
+                    <p>Fans can support you directly through tips, one-time payments, or purchasing individual tracks.</p>
+                    <ul>
+                        <li>No minimum threshold for withdrawals</li>
+                        <li>Multiple payment options for fans</li>
+                        <li>Personalized thank-you messages</li>
+                    </ul>
+                </div>
+                
+                <div class="monetization-option">
+                    <h3>Merchandise</h3>
+                    <p>Sell physical and digital merchandise directly to your fans through your Stamp profile.</p>
+                    <ul>
+                        <li>Integrated merch store</li>
+                        <li>Print-on-demand options available</li>
+                        <li>Digital goods like stems and samples</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <section class="guide-section">
+            <h2>Success Stories</h2>
+            
+            <div class="success-story">
+                <div class="story-image" style="background-image: url('https://images.unsplash.com/photo-1516223725307-6f76b9ec8742?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60')"></div>
+                <div class="story-content">
+                    <h3>Maya Rodriguez</h3>
+                    <p class="story-genre">Electronic Producer</p>
+                    <p>"Before Stamp, I was struggling to make ends meet despite having millions of streams on other platforms. Within six months of joining Stamp, I was earning enough from my music to quit my day job. The direct connection with my fans has been invaluable."</p>
+                </div>
+            </div>
+            
+            <div class="success-story">
+                <div class="story-image" style="background-image: url('https://images.unsplash.com/photo-1549213783-8284d0336c4f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60')"></div>
+                <div class="story-content">
+                    <h3>The Midnight Echoes</h3>
+                    <p class="story-genre">Indie Rock Band</p>
+                    <p>"We were hesitant to join another platform, but Stamp's artist-first approach convinced us. Our subscription model now provides consistent income that helps us focus on creating music rather than chasing streams."</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="guide-section">
+            <h2>Resources & Support</h2>
+            
+            <div class="resources-grid">
+                <div class="resource-card">
+                    <i class="fas fa-book"></i>
+                    <h3>Knowledge Base</h3>
+                    <p>Access our comprehensive library of articles, tutorials, and guides on all aspects of music creation and promotion.</p>
+                    <a href="#" class="resource-link">Browse Articles</a>
+                </div>
+                
+                <div class="resource-card">
+                    <i class="fas fa-video"></i>
+                    <h3>Video Tutorials</h3>
+                    <p>Watch step-by-step tutorials on how to use Stamp's features and maximize your presence on the platform.</p>
+                    <a href="#" class="resource-link">Watch Tutorials</a>
+                </div>
+                
+                <div class="resource-card">
+                    <i class="fas fa-comments"></i>
+                    <h3>Community Forum</h3>
+                    <p>Connect with other artists, share experiences, and get advice from the Stamp community.</p>
+                    <a href="#" class="resource-link">Join the Conversation</a>
+                </div>
+                
+                <div class="resource-card">
+                    <i class="fas fa-headset"></i>
+                    <h3>Artist Support</h3>
+                    <p>Get personalized help from our dedicated artist support team whenever you need assistance.</p>
+                    <a href="#" class="resource-link">Contact Support</a>
+                </div>
+            </div>
+        </section>
+        
+        <section class="guide-section">
+            <h2>Ready to Join?</h2>
+            <p>Stamp is currently in beta, and we're onboarding new artists every week. Join our waiting list to be notified when it's your turn to join the platform.</p>
+            
+            <form class="signup-form" id="artist-signup">
+                <div class="form-group">
+                    <label for="artist-name">Artist/Band Name</label>
+                    <input type="text" id="artist-name" name="artist-name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="artist-email">Email</label>
+                    <input type="email" id="artist-email" name="artist-email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="artist-genre">Primary Genre</label>
+                    <select id="artist-genre" name="artist-genre">
+                        <option value="">Select a genre</option>
+                        <option value="rock">Rock</option>
+                        <option value="pop">Pop</option>
+                        <option value="hip-hop">Hip-Hop/Rap</option>
+                        <option value="electronic">Electronic</option>
+                        <option value="jazz">Jazz</option>
+                        <option value="classical">Classical</option>
+                        <option value="folk">Folk/Acoustic</option>
+                        <option value="r-b">R&B/Soul</option>
+                        <option value="country">Country</option>
+                        <option value="metal">Metal</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="artist-links">Links to Your Music (SoundCloud, Spotify, etc.)</label>
+                    <textarea id="artist-links" name="artist-links"></textarea>
+                </div>
+                
+                <button type="submit" class="btn">Join Waiting List</button>
+            </form>
+        </section>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Company</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="press.html">Press</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="help.html">Help Center</a></li>
+                    <li><a href="artist-guide.html">Artist Guide</a></li>
+                    <li><a href="fan-guide.html">Fan Guide</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="terms.html">Terms of Service</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="copyright.html">Copyright Info</a></li>
+                    <li><a href="cookies.html">Cookie Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Connect</h3>
+                <div class="social-links">
+                    <a href="https://twitter.com/stampfm" target="_blank"><i class="fab fa-twitter"></i></a>
+                    <a href="https://instagram.com/stampfm" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://facebook.com/stampfm" target="_blank"><i class="fab fa-facebook"></i></a>
+                    <a href="https://discord.gg/stampfm" target="_blank"><i class="fab fa-discord"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="/js/colors.js"></script>
+    <script type="module" src="/js/retro.js"></script>
+    <script>
+        // Standard authentication and 90s mode scripts
+        function checkAuth() {
+            const token = localStorage.getItem('authToken');
+            const user = JSON.parse(localStorage.getItem('user') || '{}');
+            const loginButton = document.getElementById('loginButton');
+            const logoutButton = document.getElementById('logoutButton');
+            const welcomeSpan = document.getElementById('user-welcome');
+    
+            if (token && user && user.name) {
+                loginButton.style.display = 'none';
+                logoutButton.style.display = 'block';
+                welcomeSpan.textContent = `Welcome, ${user.name}`;
+            } else {
+                loginButton.style.display = 'block';
+                logoutButton.style.display = 'none';
+                welcomeSpan.textContent = '';
+            }
+        }
+    
+        function logout() {
+            localStorage.removeItem('authToken');
+            localStorage.removeItem('user');
+            checkAuth();
+            window.location.href = 'index.html';
+        }
+    
+        window.addEventListener('load', checkAuth);
+        window.addEventListener('storage', function(e) {
+            if (e.key === 'authToken' || e.key === 'user') {
+                checkAuth();
+            }
+        });
+
+        function toggle90sMode() {
+            const body = document.body;
+            body.classList.toggle('nineties-mode');
+            
+            document.querySelectorAll('.nineties-gif, .nineties-gif-container').forEach(el => el.remove());
+            
+            const matrixBanner = document.getElementById('matrix-banner');
+            if (body.classList.contains('nineties-mode')) {
+                matrixBanner.style.display = 'block';
+                
+                setTimeout(() => {
+                    matrixBanner.style.display = 'none';
+                }, 3000);
+            } else {
+                matrixBanner.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html> 

@@ -1,0 +1,177 @@
+.nineties-mode {
+    font-family: "Comic Sans MS", cursive, sans-serif !important;
+    color: #39FF14 !important;
+    background: #000 !important;
+}
+
+/* Ensure content visibility */
+.nineties-mode .page-content,
+.nineties-mode .page-header {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+.nineties-mode .top-header {
+    background: #0000CD !important;
+    border-bottom: 3px ridge #FFD700 !important;
+}
+
+.nineties-mode .hero {
+    background: #000 url('https://media.giphy.com/media/26BRrSvJUa0crqw4E/giphy.gif') repeat-x bottom !important;
+}
+
+.nineties-mode .section {
+    background: #00008B !important;
+    color: #39FF14 !important;
+    border: 3px dotted #FFD700 !important;
+}
+
+.nineties-mode .btn {
+    background: #FF69B4 !important;
+    color: #FFFF00 !important;
+    border: 3px outset #FFD700 !important;
+}
+
+.nineties-mode .footer-content {
+    background: #00008B !important;
+    border-top: 3px ridge #FFD700 !important;
+}
+
+.nineties-mode .logo {
+    color: #FF69B4 !important;
+    text-shadow: 2px 2px #FFFF00 !important;
+    -webkit-text-fill-color: #FF69B4 !important;
+}
+
+.nineties-mode h1, 
+.nineties-mode h2 {
+    font-family: "Comic Sans MS", cursive, sans-serif !important;
+    text-shadow: 3px 3px #FFD700 !important;
+}
+
+.nineties-mode marquee {
+    color: #39FF14 !important;
+}
+
+.nineties-mode a {
+    color: #39FF14 !important;
+    text-decoration: underline !important;
+}
+
+.nineties-mode a:hover {
+    color: #FF69B4 !important;
+}
+
+.nineties-gif {
+    margin: 10px;
+    max-width: 100px;
+}
+
+.nineties-gif-container {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    display: flex;
+    gap: 10px;
+    z-index: 1001;
+}
+
+/* ... rest of the retro styles ... */
+
+body.nineties-mode {
+    background: #000;
+    color: #00ff00;
+    font-family: 'VT323', monospace;
+}
+
+/* Make sure content stays visible */
+body.nineties-mode .page-content,
+body.nineties-mode .page-header {
+    display: block !important;
+    visibility: visible !important;
+}
+
+/* Make sure retro sections stay visible in both modes */
+.retro-section,
+.nineties-mode .retro-section {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+/* 90s retro counter styles */
+.nineties-mode .retro-counter {
+    background: #000080;  /* Classic "navy" blue */
+    border: 3px ridge #c0c0c0;  /* Classic Windows 95/98 ridge border */
+    color: #ffffff;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    padding: 15px;
+    margin: 20px auto;
+    max-width: 600px;
+    text-align: center;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+.nineties-mode .webmaster-info {
+    background: #000;
+    border: 2px inset #c0c0c0;
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 14px;
+}
+
+.nineties-mode .webmaster-info marquee {
+    background: #000080;
+    padding: 5px;
+    margin-top: 8px;
+    border: 2px inset #c0c0c0;
+    font-family: "VT323", monospace;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.nineties-mode .visitor-counter {
+    background: #000;
+    border: 2px inset #c0c0c0;
+    padding: 10px;
+    margin: 10px 0;
+    font-weight: bold;
+    color: #00ff00;  /* Matrix green */
+    font-family: "VT323", monospace;
+    font-size: 20px;
+}
+
+.nineties-mode .best-viewed {
+    margin-top: 10px;
+    font-size: 12px;
+    color: #ffff00;  /* Yellow text */
+    text-shadow: 1px 1px 2px #000;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+.nineties-mode .retro-audio {
+    margin-top: 20px;
+    padding: 10px;
+    background: #000;
+    border: 2px inset #c0c0c0;
+    text-align: center;
+}
+
+.nineties-mode .retro-audio p {
+    color: #00ff00;
+    margin-bottom: 10px;
+    font-family: "VT323", monospace;
+}
+
+.nineties-mode .retro-audio audio {
+    width: 80%;
+    margin: 0 auto;
+} 

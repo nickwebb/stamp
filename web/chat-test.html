@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat - Stamp</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="/styles/retro.css">
+    <style>
+        .chat-container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: var(--surface-color, #fff);
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .chat-messages {
+            height: 400px;
+            overflow-y: auto;
+            border: 1px solid var(--border-color, #ddd);
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            background: var(--background-color, #f8f9fa);
+        }
+
+        .message {
+            margin: 10px 0;
+            padding: 12px 15px;
+            border-radius: 8px;
+            max-width: 80%;
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.4;
+            color: #000;
+        }
+
+        .message.sent {
+            background: var(--primary-color, #007bff);
+            color: white;
+            margin-left: auto;
+        }
+
+        .message.received {
+            border-left: 3px solid var(--primary-color, #007bff);
+            margin-right: auto;
+            background: none;
+        }
+
+        .chat-input {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color, #ddd);
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+        }
+
+        .chat-input button {
+            padding: 12px 24px;
+            background: var(--primary-color, #007bff);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .chat-input button:hover {
+            background: var(--primary-dark-color, #0056b3);
+        }
+
+        .system-message {
+            text-align: center;
+            color: var(--text-muted-color, #6c757d);
+            margin: 10px 0;
+            font-size: 0.9em;
+        }
+
+        /* Retro mode styles */
+        .retro-mode .chat-container {
+            border: 2px solid #000;
+            box-shadow: 4px 4px 0 #000;
+        }
+
+        .retro-mode .chat-messages {
+            border: 2px solid #000;
+        }
+
+        .retro-mode .message {
+            border: 1px solid #000;
+        }
+
+        .retro-mode .chat-input input {
+            border: 2px solid #000;
+        }
+
+        .retro-mode .chat-input button {
+            border: 2px solid #000;
+            box-shadow: 2px 2px 0 #000;
+        }
+
+        .retro-mode .chat-input button:active {
+            transform: translate(2px, 2px);
+            box-shadow: none;
+        }
+
+        /* Mobile styles */
+        @media (max-width: 768px) {
+            .chat-container {
+                margin: 0;
+                padding: 10px;
+                border-radius: 0;
+                height: calc(100vh - 60px); /* Account for header */
+                display: flex;
+                flex-direction: column;
+            }
+
+            .chat-messages {
+                flex: 1;
+                height: auto;
+                margin-bottom: 10px;
+            }
+
+            .message {
+                max-width: 85%;
+                padding: 10px;
+                font-size: 14px;
+            }
+
+            .chat-input {
+                margin-top: 10px;
+                padding-bottom: env(safe-area-inset-bottom); /* For iPhone notch */
+            }
+
+            .chat-input input {
+                padding: 10px;
+                font-size: 16px; /* Prevent zoom on iOS */
+            }
+
+            .chat-input button {
+                padding: 10px 20px;
+                white-space: nowrap;
+            }
+
+            .return-home-container {
+                display: none; /* Hide return link on mobile */
+            }
+
+            /* Adjust page content padding */
+            .page-content {
+                padding: 0;
+            }
+
+            /* Adjust header for mobile */
+            .page-header {
+                margin-bottom: 0;
+                padding: 10px;
+            }
+
+            .page-header h1 {
+                font-size: 20px;
+            }
+        }
+
+        /* Additional iPhone safety area adjustments */
+        @supports (padding: max(0px)) {
+            @media (max-width: 768px) {
+                .chat-container {
+                    padding-bottom: max(10px, env(safe-area-inset-bottom));
+                }
+            }
+        }
+
+        .message-name {
+            display: block;
+            font-size: 0.8em;
+            margin-bottom: 4px;
+            opacity: 0.7;
+        }
+
+        .message.sent .message-name {
+            text-align: right;
+        }
+
+        .message-text {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-header">
+        <h1>Chat</h1>
+    </div>
+
+    <div class="page-content">
+        <div class="chat-container">
+            <div class="chat-messages" id="messages"></div>
+            <div class="chat-input">
+                <input type="text" id="messageInput" placeholder="Type your message...">
+                <button onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+
+        <div class="return-home-container">
+            <a href="index.html" class="return-home-link"><i class="fas fa-arrow-left"></i> Return to Home</a>
+        </div>
+    </div>
+
+    <script>
+        let ws;
+        const messages = document.getElementById('messages');
+
+        async function connect() {
+            // Check if user is logged in
+            const token = localStorage.getItem('token');
+            if (!token) {
+                window.location.href = '/login.html?redirect=' + encodeURIComponent(window.location.pathname);
+                return;
+            }
+
+            try {
+                ws = new WebSocket('wss://stamp-api.nickwebb.workers.dev/api/chat');
+                
+                // Add token to WebSocket connection
+                ws.onopen = () => {
+                    ws.send(JSON.stringify({
+                        type: 'auth',
+                        token: token
+                    }));
+                    addSystemMessage('Connected to chat');
+                };
+
+                ws.onclose = () => {
+                    addSystemMessage('Disconnected from chat');
+                    setTimeout(connect, 5000);
+                };
+
+                ws.onmessage = (event) => {
+                    const message = JSON.parse(event.data);
+                    if (message.type === 'system') {
+                        addSystemMessage(message.text);
+                    } else {
+                        addMessage(message);
+                    }
+                };
+            } catch (error) {
+                console.error('Connection error:', error);
+                if (error.message.includes('Unauthorized')) {
+                    // Token might be invalid
+                    localStorage.removeItem('token');
+                    window.location.href = '/login.html';
+                }
+            }
+        }
+
+        function addMessage(message) {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message');
+            messageDiv.classList.add(message.sessionId === ws.sessionId ? 'sent' : 'received');
+            
+            // Add user name to message
+            const nameSpan = document.createElement('span');
+            nameSpan.classList.add('message-name');
+            nameSpan.textContent = message.userData.name;
+            
+            const textSpan = document.createElement('span');
+            textSpan.classList.add('message-text');
+            textSpan.textContent = message.text;
+            
+            messageDiv.appendChild(nameSpan);
+            messageDiv.appendChild(textSpan);
+            
+            messages.appendChild(messageDiv);
+            messages.scrollTop = messages.scrollHeight;
+        }
+
+        function addSystemMessage(text) {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('system-message');
+            messageDiv.textContent = text;
+            messages.appendChild(messageDiv);
+            messages.scrollTop = messages.scrollHeight;
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const message = input.value.trim();
+            
+            if (message && ws.readyState === WebSocket.OPEN) {
+                ws.send(JSON.stringify({
+                    text: message,
+                    timestamp: new Date().toISOString()
+                }));
+                input.value = '';
+            }
+        }
+
+        // Start connection when page loads
+        connect();
+
+        // Allow sending with Enter key
+        document.getElementById('messageInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        // Handle retro mode
+        document.addEventListener('retro-mode-change', (event) => {
+            if (event.detail.enabled) {
+                document.body.classList.add('retro-mode');
+            } else {
+                document.body.classList.remove('retro-mode');
+            }
+        });
+    </script>
+
+    <script type="module" src="/js/colors.js"></script>
+    <script type="module" src="/js/retro.js"></script>
+    <script src="/js/includes.js"></script>
+    <script src="/js/retro-mode.js"></script>
+</body>
+</html> 

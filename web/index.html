@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stamp - Where Artists Thrive</title>
+    <!-- Favicon (add this) -->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    
+    <!-- Meta tags for SEO (add these) -->
+    <meta name="description" content="Stamp - A platform where artists thrive and fans become part of the journey. Direct artist-fan connections, fair compensation, and exclusive content.">
+    <meta name="keywords" content="music platform, artist support, fan engagement, music streaming, independent artists">
+    
+    <!-- Stylesheets -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="/styles/retro.css">
+</head>
+<body>
+    <div class="hero">
+        <div class="hero-content">
+            <div class="logo">Stamp</div>
+            <h1>Where Artists Thrive and Fans Become Part of the Journey</h1>
+        </div>
+    </div>
+
+    <div class="sections">
+        <div class="section">
+            <h2>For Artists</h2>
+            <p>Connect directly with your fans, be free from algorithmic gatekeeping, get paid more.</p>
+            <ul style="list-style: none; margin: 2rem 0;">
+                <li>✨ Reward fans for being your early supporters</li>
+                <li>🎵 Directly speak to your fans, share new releases & upcoming shows</li>
+                <li>📈 Be paid fairly. We help you offer more to earn more.</li>
+                <li>🌟 Have your song be more than just a line in a list</li>
+                <li>🎧 No algorithm blocking you from your fans</li>
+            </ul>
+            <a href="waitlist.html" class="btn">Join the waiting list</a>
+        </div>
+
+        <div class="section">
+            <h2>For Fans</h2>
+            <p>Connect directly with artists, be rewarded for your support and become part of their journey.</p>
+            <ul style="list-style: none; margin: 2rem 0;">
+                <li>🎁 Exclusive demos, b-sides, live shows</li>
+                <li>💫 Early supporter benefits like first access to tickets</li>
+                <li>🤝 Direct artist interaction</li>
+                <li>🎧 Highest quality files</li>
+                <li>🌟 Support the artist directly</li>
+            </ul>
+            <div class="explore-artists">
+                <h3>Explore Artists by Genre</h3>
+                <div class="genre-tags">
+                    <a href="/explore?genre=electronic" class="genre-tag">Electronic</a>
+                    <a href="/explore?genre=hiphop" class="genre-tag">Hip Hop</a>
+                    <a href="/explore?genre=rock" class="genre-tag">Rock</a>
+                    <a href="/explore?genre=jazz" class="genre-tag">Jazz</a>
+                    <a href="/explore?genre=classical" class="genre-tag">Classical</a>
+                    <a href="/explore?genre=pop" class="genre-tag">Pop</a>
+                    <a href="/explore?genre=folk" class="genre-tag">Folk</a>
+                    <a href="/explore?genre=ambient" class="genre-tag">Ambient</a>
+                    <a href="/explore?genre=rnb" class="genre-tag">R&B</a>
+                    <a href="/explore?genre=metal" class="genre-tag">Metal</a>
+                </div>
+            </div>
+            <div class="invite-code">
+                <p>Have an Artist invite code?</p>
+                <div class="invite-input-container">
+                    <input type="text" id="inviteCodeInput" placeholder="Enter your invite code">
+                    <button class="btn" onclick="handleInviteCode()">Submit</button>
+                </div>
+                <p id="inviteCodeError" class="error-message" style="display: none; color: var(--neon-pink); margin-top: 0.5rem; font-size: 0.9rem;"></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="constitution-container">
+        <h2 class="constitution-title">The Stamp Constitution</h2>
+        <p class="constitution-intro">Our guiding principles for building a better music ecosystem</p>
+        
+        <div class="constitution-points">
+            <div class="constitution-point">
+                <span class="point-number">1</span>
+                <p>Artists are paid the majority of the profits. All artist payments are transparent. The creator should have the power.</p>
+            </div>
+            
+            <div class="constitution-point">
+                <span class="point-number">2</span>
+                <p>Currently early fans get nothing. We believe they should benefit from their early recognition of an artist, and that that will incentise more support of early artists</p>
+            </div>
+            
+            <div class="constitution-point">
+                <span class="point-number">3</span>
+                <p>Music discovery should not just be watched over by loving algorithms but curated by artists and great tastemakers</p>
+            </div>
+            
+            <div class="constitution-point">
+                <span class="point-number">4</span>
+                <p>We want to make being a band make sense economically again. We are losing the next Beatles and we don't even realise it.</p>
+            </div>
+            
+            <div class="constitution-point">
+                <span class="point-number">5</span>
+                <p>While we are starting with musicians, all forms of art has fans and all artists should be supported.</p>
+            </div>
+            
+            <div class="constitution-point">
+                <span class="point-number">6</span>
+                <p>Technology should empower creativity, not restrict or exploit it.</p>
+            </div>
+            
+            <div class="constitution-point">
+                <span class="point-number">7</span>
+                <p>We recognise not everyone can be a professional artist, but having fans at any size is a wonderful thing.</p>
+            </div>
+            
+            <div class="constitution-point">
+                <span class="point-number">8</span>
+                <p>Just human artists, not AI. We believe AI can be a great tool for artists but it should be used to enhance, not replace.</p>
+            </div>
+        </div>
+    </div>
+    <div class="streaming-problems">
+        <h2>The Streaming Problem</h2>
+        
+        <div class="problem-section">
+            <h3>The Current Model is Broken</h3>
+            <p>Currently artists pay to make their music and give it to the streaming services for free. Then are paid a fraction of a pence/cent per listen. We love Spotify as a listener but for artists the streaming model is broken and disheartening.</p>
+        </div>
+
+        <div class="problem-section">
+            <h3>Early Fans Matter</h3>
+            <p>Early fans should be rewarded. There has been no benefit to being an early discoverer of a new artist. We want that to change, to incentivise those early fans that are so helpful to artists. Money aside, early fans keep new artists going and give important feedback.</p>
+        </div>
+
+        <div class="problem-section">
+            <h3>A Better Way Forward</h3>
+            <p>Not everyone can make a career as an artist, but it is possible for artists to earn more. How? Give early fans exclusive access - to b-sides, demos, songs, DAW project files, live gigs, chat etc etc. The artist decides how much they want to charge and for what.</p>
+            
+            <div class="stamp-value">
+                <div class="stamp-price">
+                    <span class="price">$10</span>
+                    <span class="label">per Stamp</span>
+                </div>
+                <div class="artist-share">
+                    <span class="percentage">90%</span>
+                    <span class="label">goes to artist</span>
+                </div>
+            </div>
+
+            <p>That would take 4,000 streams for an artist to make. So say 12,000 minutes or 200 hours of listening. You'd probably be flagged as a bot if you listened that much.</p>
+        </div>
+
+        <div class="problem-section">
+            <h3>Even Success Has Its Challenges</h3>
+            <p>Artists that do successfully build a following or get signed find they are still up against it. Even with millions of followers on social media the artists message only goes out if enough people like it, and that doesn't work eg for ticket sales for particular cities. The artist isn't in control of what their fans see, and the fans aren't in control of what they want to see.</p>
+            <p>The signed artists find they are subsidising the label. They're lucky if they get 20% of their streaming revenue before costs.</p>
+        </div>
+
+        <div class="calculator-cta">
+            <a href="calculator.html" class="btn btn-primary">Try Out Our 'How Many Streams?' Calculator</a>
+        </div>
+    </div>
+    <section class="content-sections">
+        <div class="content-grid">
+            <div class="content-card">
+                <h3>Artist of the Week</h3>
+                <p>Each week we choose an artist to feature. This week we're featuring Sarah Chen, an indie electronic artist who's redefining the boundaries of ambient music with microtonal synths.</p>
+                <a href="artist-of-the-week.html" class="btn">Discover More</a>
+            </div>
+
+            <div class="content-card">
+                <h3>Artist Stories</h3>
+                <p>From bedroom producer to festival headliner - follow the journey of artists who've built their careers on their own terms through direct fan support.</p>
+                <a href="artist-stories.html" class="btn">Read Stories</a>
+            </div>
+
+            <div class="content-card">
+                <h3>Latest Blog Posts</h3>
+                <p></p><ul style="list-style: none;">
+                    <li>🎵 The Future of Music Ownership</li>
+                    <li>💡 How to Build a Sustainable Music Career</li>
+                    <li>🌟 Fan-Supported Success Stories</li>
+                </ul></p>
+                <a href="blog.html" class="btn">View All Posts</a>
+            </div>
+
+            <div class="content-card">
+                <h3>SuperFan Curated Tracks</h3>
+                <p>Discover hidden gems selected by our most active community members. New playlists updated weekly.</p>
+                <a href="fan-curated.html" class="btn">Listen Now</a>
+            </div>
+
+            <div class="content-card">
+                <h3>Why We're Different</h3>
+                <p>The current music industry is broken. Out of 11 million artists on Spotify, only 13,000 make a decent wage.</p>
+                <div class="stats-highlight">0.1%</div>
+                <p>That's the percentage of artists who can sustain themselves through traditional streaming. We're here to change that by connecting artists directly with their true fans.</p>
+                <a href="why-different.html" class="btn">Learn More</a>
+            </div>
+
+            <div class="content-card">
+                <h3>Why Does It Matter?</h3>
+                <p>Have you noticed there are very few new bands in the charts any more? That's because the economics don't work well at all. The Beatles, Oasis, Pink Floyd, Led Zeppelin of today don't exist because they can't. We don't realise what we're losing.</p>
+                <a href="why-it-matters.html" class="btn">Learn More</a>
+            </div>
+        </div>
+    </section>
+    <!-- Retro Web Elements -->
+    <div class="retro-counter" style="display: none;">
+        <div class="webmaster-info">
+            <p>📧 Contact the Webmaster: <a href="mailto:webmaster@stamp.com?subject=Hello%20from%20the%2090s!">webmaster@stamp.com</a></p>
+            <marquee scrollamount="2" behavior="alternate" width="100%">
+                Last updated: <span style="color: var(--neon-pink);">11.28.1999</span> - Under Construction! 🚧
+            </marquee>
+        </div>
+        
+        <div class="visitor-counter">
+            Visitors: <span id="visitor-count">00000000</span>
+        </div>
+        <div class="best-viewed">
+            🖥️ Best viewed in Netscape Navigator 4.0 at 800x600 resolution
+        </div>
+        <div class="retro-audio">
+            <audio controls>
+                <source src="/audio/win95.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+    </div>
+    <script>
+      (function(){
+          // Function to update visibility of the retro counter based on 90s mode
+          function updateRetroVisibility() {
+              var retroCounter = document.querySelector('.retro-counter');
+              if (document.body.classList.contains('nineties-mode')) {
+                  retroCounter.style.display = 'block';
+              } else {
+                  retroCounter.style.display = 'none';
+              }
+          }
+          
+          // Initial check on page load
+          updateRetroVisibility();
+          
+          // Observe changes to the body's class attributes to handle toggling
+          var observer = new MutationObserver(updateRetroVisibility);
+          observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+      })();
+    </script>
+    <script src="/js/includes.js"></script>
+    <!-- Scripts moved to end of body -->
+    <script type="module" src="/js/main.js"></script>
+    <script type="module" src="/js/colors.js"></script>
+    <script type="module" src="/js/retro.js"></script>
+    <script type="module" src="/js/auth.js"></script>
+    <script type="module" src="/js/invite-code.js"></script>
+</body>
+</html>

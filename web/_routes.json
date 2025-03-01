@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "include": ["/*"],
+  "exclude": [],
+  "routes": [
+    {
+      "route": "/explore",
+      "serve": "/explore.html",
+      "rewrite": true,
+      "status": 200
+    }
+  ]
+} 

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Stamp</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="/styles/retro.css">
+</head>
+<body>
+    <header class="top-header">
+        <div class="header-container">
+            <div class="header-left">
+                <a href="index.html" class="home-link">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+                <span id="user-welcome"></span>
+            </div>
+            <div class="header-right">
+                <button class="login-btn" id="loginButton" onclick="window.location.href='login.html'">Sign Up / Login</button>
+                <button class="login-btn" id="dashboardButton" onclick="window.location.href='dashboard.html'" style="display: none;">Dashboard</button>
+            </div>
+        </div>
+    </header>
+
+    <div id="matrix-banner" class="nineties-banner" style="display: none;">
+        *** 90s MODE ACTIVATED ***
+    </div>
+
+    <div class="blog-hero">
+        <div class="featured-post">
+            <div class="featured-content">
+                <span class="featured-tag">Featured</span>
+                <h1>The Future of Music Streaming: Beyond the Algorithm</h1>
+                <p class="featured-excerpt">How human curation and community-driven discovery are making a comeback in the age of algorithms.</p>
+                <div class="post-meta">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Sarah Chen" class="author-avatar">
+                    <div class="meta-info">
+                        <span class="author-name">Sarah Chen</span>
+                        <span class="post-date">June 15, 2023</span>
+                    </div>
+                </div>
+                <a href="#" class="read-more-btn">Read Article <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="blog-filters">
+        <div class="filter-container">
+            <button class="filter-btn active" data-category="all">All Posts</button>
+            <button class="filter-btn" data-category="industry">Industry Insights</button>
+            <button class="filter-btn" data-category="artist">Artist Stories</button>
+            <button class="filter-btn" data-category="tech">Tech Updates</button>
+            <button class="filter-btn" data-category="community">Community</button>
+        </div>
+        <div class="search-container">
+            <input type="text" placeholder="Search articles..." class="search-input">
+            <i class="fas fa-search search-icon"></i>
+        </div>
+    </div>
+
+    <div class="blog-grid-container">
+        <div class="blog-grid">
+            <!-- Article Card 1 -->
+            <article class="blog-card" data-category="industry">
+                <div class="card-image-container">
+                    <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')"></div>
+                    <span class="reading-time">5 min read</span>
+                </div>
+                <div class="card-content">
+                    <span class="category-tag industry">Industry Insights</span>
+                    <h2>The Rise of Independent Artists in 2024</h2>
+                    <p>How technology and community-driven platforms are empowering independent musicians.</p>
+                    <div class="card-footer">
+                        <div class="author-info">
+                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Author" class="author-avatar-small">
+                            <span>Alex Rivera</span>
+                        </div>
+                        <span class="post-date">Mar 15, 2024</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Article Card 2 -->
+            <article class="blog-card" data-category="tech">
+                <div class="card-image-container">
+                    <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1517292987719-0369a794ec0f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')"></div>
+                    <span class="reading-time">8 min read</span>
+                </div>
+                <div class="card-content">
+                    <span class="category-tag tech">Tech Updates</span>
+                    <h2>AI in Music: Friend or Foe?</h2>
+                    <p>Exploring the impact of artificial intelligence on music creation and distribution.</p>
+                    <div class="card-footer">
+                        <div class="author-info">
+                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Author" class="author-avatar-small">
+                            <span>Maria Torres</span>
+                        </div>
+                        <span class="post-date">Mar 12, 2024</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- More article cards... -->
+        </div>
+
+        <div class="blog-sidebar">
+            <div class="trending-section">
+                <h3>Trending Posts</h3>
+                <div class="trending-posts">
+                    <a href="#" class="trending-post">
+                        <span class="trending-number">01</span>
+                        <div class="trending-content">
+                            <h4>Web3 Music Platforms: A New Era</h4>
+                            <span class="views">2.4k views</span>
+                        </div>
+                    </a>
+                    <!-- More trending posts... -->
+                </div>
+            </div>
+
+            <div class="categories-section">
+                <h3>Categories</h3>
+                <div class="category-list">
+                    <a href="#" class="category-item">
+                        <span class="category-name">Industry Insights</span>
+                        <span class="post-count">12</span>
+                    </a>
+                    <!-- More categories... -->
+                </div>
+            </div>
+
+            <div class="newsletter-section">
+                <h3>Stay Updated</h3>
+                <p>Get the latest music industry insights straight to your inbox.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Your email address" required>
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Company</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="press.html">Press</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="help.html">Help Center</a></li>
+                    <li><a href="artist-guide.html">Artist Guide</a></li>
+                    <li><a href="fan-guide.html">Fan Guide</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="terms.html">Terms of Service</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="copyright.html">Copyright Info</a></li>
+                    <li><a href="cookies.html">Cookie Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Connect</h3>
+                <div class="social-links">
+                    <a href="https://twitter.com/stampfm" target="_blank"><i class="fab fa-twitter"></i></a>
+                    <a href="https://instagram.com/stampfm" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://facebook.com/stampfm" target="_blank"><i class="fab fa-facebook"></i></a>
+                    <a href="https://discord.gg/stampfm" target="_blank"><i class="fab fa-discord"></i></a>
+                </div>
+                <div class="retro-mode">
+                    <a href="#" onclick="toggle90sMode(); return false;">💾 🤍 The 90s</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="/js/colors.js"></script>
+    <script type="module" src="/js/retro.js"></script>
+    <script>
+        function checkAuth() {
+            const token = localStorage.getItem('authToken');
+            const user = JSON.parse(localStorage.getItem('user') || '{}');
+            const loginButton = document.getElementById('loginButton');
+            const logoutButton = document.getElementById('logoutButton');
+            const welcomeSpan = document.getElementById('user-welcome');
+    
+            if (token && user && user.name) {
+                loginButton.style.display = 'none';
+                logoutButton.style.display = 'block';
+                welcomeSpan.textContent = `Welcome, ${user.name}`;
+            } else {
+                loginButton.style.display = 'block';
+                logoutButton.style.display = 'none';
+                welcomeSpan.textContent = '';
+            }
+        }
+    
+        function logout() {
+            localStorage.removeItem('authToken');
+            localStorage.removeItem('user');
+            checkAuth();
+            window.location.href = 'index.html';
+        }
+    
+        window.addEventListener('load', checkAuth);
+        window.addEventListener('storage', function(e) {
+            if (e.key === 'authToken' || e.key === 'user') {
+                checkAuth();
+            }
+        });
+
+        function toggle90sMode() {
+            const body = document.body;
+            body.classList.toggle('nineties-mode');
+            
+            document.querySelectorAll('.nineties-gif, .nineties-gif-container').forEach(el => el.remove());
+            
+            const matrixBanner = document.getElementById('matrix-banner');
+            if (body.classList.contains('nineties-mode')) {
+                matrixBanner.style.display = 'block';
+                
+                setTimeout(() => {
+                    matrixBanner.style.display = 'none';
+                }, 3000);
+            } else {
+                matrixBanner.style.display = 'none';
+            }
+        }
+
+        // Filter functionality
+        document.querySelectorAll('.filter-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                document.querySelector('.filter-btn.active').classList.remove('active');
+                button.classList.add('active');
+                const category = button.dataset.category;
+                filterPosts(category);
+            });
+        });
+
+        function filterPosts(category) {
+            document.querySelectorAll('.blog-card').forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html> 

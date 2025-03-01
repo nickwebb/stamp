@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Stamp</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="/styles/retro.css">
+</head>
+<body>
+    <header class="top-header">
+        <div class="header-container">
+            <div class="header-left">
+                <a href="index.html" class="home-link">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+                <span id="user-welcome"></span>
+            </div>
+            <div class="header-right">
+                <button class="login-btn" id="loginButton" onclick="window.location.href='login.html'">Sign Up / Login</button>
+                <button class="login-btn" id="logoutButton" onclick="logout()" style="display: none;">Logout</button>
+                <button class="secret-btn" onclick="toggle90sMode()">💾</button>
+            </div>
+        </div>
+    </header>
+
+    <div id="matrix-banner" class="nineties-banner" style="display: none;">
+        *** 90s MODE ACTIVATED ***
+    </div>
+
+    <div class="page-header">
+        <h1>About Stamp</h1>
+    </div>
+
+    <div class="page-content">
+        <section class="about-section">
+            <h2>Our Mission</h2>
+            <p>Stamp was founded with a simple but powerful mission: to create a music ecosystem that truly serves artists and fans. We believe the current music industry is broken, with artists receiving pennies for their work and fans disconnected from the creators they love.</p>
+            
+            <p>Our platform is designed to flip this model on its head, creating direct connections between artists and their communities while ensuring fair compensation and ownership for creators.</p>
+        </section>
+
+        <section class="about-section">
+            <h2>Our Story</h2>
+            <p>Stamp began in 2023 when a group of musicians, technologists, and music lovers came together with a shared frustration about the state of the music industry. We saw talented artists struggling to make ends meet despite millions of streams, and fans who wanted to support their favorite artists but lacked meaningful ways to do so.</p>
+            
+            <p>We asked ourselves: What if we could build a platform that prioritizes the artist-fan relationship and creates a sustainable ecosystem for music to thrive?</p>
+            
+            <p>After months of development and conversations with hundreds of artists and fans, Stamp was born – a platform built on the principles of fairness, community, and sustainability.</p>
+        </section>
+
+        <section class="about-section">
+            <h2>Our Team</h2>
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="member-photo" style="background-image: url('https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60')"></div>
+                    <h3>Alex Rivera</h3>
+                    <p class="member-title">Founder & CEO</p>
+                    <p>Former indie musician and tech entrepreneur with a passion for creating sustainable models for creative industries.</p>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-photo" style="background-image: url('https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60')"></div>
+                    <h3>Maya Johnson</h3>
+                    <p class="member-title">Chief Product Officer</p>
+                    <p>Product designer with 10+ years experience building community-focused platforms and marketplaces.</p>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-photo" style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60')"></div>
+                    <h3>David Chen</h3>
+                    <p class="member-title">CTO</p>
+                    <p>Full-stack developer and blockchain specialist focused on building transparent, artist-friendly technology.</p>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-photo" style="background-image: url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60')"></div>
+                    <h3>Sophia Williams</h3>
+                    <p class="member-title">Head of Artist Relations</p>
+                    <p>Former label executive with deep connections in the indie music scene and a passion for artist advocacy.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="about-section">
+            <h2>Our Values</h2>
+            <div class="values-grid">
+                <div class="value-item">
+                    <i class="fas fa-handshake"></i>
+                    <h3>Fairness</h3>
+                    <p>We believe artists deserve fair compensation for their work and transparent terms.</p>
+                </div>
+                
+                <div class="value-item">
+                    <i class="fas fa-users"></i>
+                    <h3>Community</h3>
+                    <p>We're building a platform owned and governed by the people who use it.</p>
+                </div>
+                
+                <div class="value-item">
+                    <i class="fas fa-lightbulb"></i>
+                    <h3>Innovation</h3>
+                    <p>We're constantly exploring new ways to connect artists and fans.</p>
+                </div>
+                
+                <div class="value-item">
+                    <i class="fas fa-globe"></i>
+                    <h3>Sustainability</h3>
+                    <p>We're building for the long term, not short-term profits.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Company</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="press.html">Press</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="help.html">Help Center</a></li>
+                    <li><a href="artist-guide.html">Artist Guide</a></li>
+                    <li><a href="fan-guide.html">Fan Guide</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="terms.html">Terms of Service</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="copyright.html">Copyright Info</a></li>
+                    <li><a href="cookies.html">Cookie Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Connect</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-discord"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="/js/colors.js"></script>
+    <script type="module" src="/js/retro.js"></script>
+    <script>
+        // Check authentication status
+        function checkAuth() {
+            const token = localStorage.getItem('authToken');
+            const user = JSON.parse(localStorage.getItem('user') || '{}');
+            const loginButton = document.getElementById('loginButton');
+            const logoutButton = document.getElementById('logoutButton');
+            const welcomeSpan = document.getElementById('user-welcome');
+    
+            if (token && user && user.name) {
+                loginButton.style.display = 'none';
+                logoutButton.style.display = 'block';
+                welcomeSpan.textContent = `Welcome, ${user.name}`;
+            } else {
+                loginButton.style.display = 'block';
+                logoutButton.style.display = 'none';
+                welcomeSpan.textContent = '';
+            }
+        }
+    
+        // Logout function
+        function logout() {
+            localStorage.removeItem('authToken');
+            localStorage.removeItem('user');
+            checkAuth();
+            window.location.href = 'index.html';
+        }
+    
+        // Check auth status when page loads
+        window.addEventListener('load', checkAuth);
+
+        // Add event listener for storage changes
+        window.addEventListener('storage', function(e) {
+            if (e.key === 'authToken' || e.key === 'user') {
+                checkAuth();
+            }
+        });
+
+        // Function to toggle 90s mode
+        function toggle90sMode() {
+            const body = document.body;
+            body.classList.toggle('nineties-mode');
+            
+            // Remove any pre-existing retro gifs and containers
+            document.querySelectorAll('.nineties-gif, .nineties-gif-container').forEach(el => el.remove());
+            
+            const matrixBanner = document.getElementById('matrix-banner');
+            if (body.classList.contains('nineties-mode')) {
+                matrixBanner.style.display = 'block';
+                
+                // Hide banner after 3 seconds
+                setTimeout(() => {
+                    matrixBanner.style.display = 'none';
+                }, 3000);
+            } else {
+                matrixBanner.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html> 

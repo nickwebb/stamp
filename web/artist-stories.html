@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artist Stories - Stamp</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="/styles/retro.css">
+</head>
+<body>
+    <header class="top-header">
+        <div class="header-container">
+            <div class="header-left">
+                <a href="index.html" class="home-link">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+                <span id="user-welcome"></span>
+            </div>
+            <div class="header-right">
+                <button class="login-btn" id="loginButton" onclick="window.location.href='login.html'">Sign Up / Login</button>
+                <button class="login-btn" id="dashboardButton" onclick="window.location.href='dashboard.html'" style="display: none;">Dashboard</button>
+                <button class="secret-btn" onclick="toggle90sMode()">💾</button>
+            </div>
+        </div>
+    </header>
+
+    <div id="matrix-banner" class="nineties-banner" style="display: none;">
+        *** 90s MODE ACTIVATED ***
+    </div>
+
+    <div class="page-header">
+        <h1>Artist Stories</h1>
+    </div>
+
+    <div class="page-content">
+        <section class="intro-section">
+            <h2>Real Stories from Independent Artists</h2>
+            <p>Discover the journeys of musicians who are building sustainable careers through direct fan support.</p>
+            
+            <div class="stories-grid">
+                <div class="story-card">
+                    <div class="story-image" style="background-image: url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')"></div>
+                    <div class="story-content">
+                        <h3>From Bedroom Producer to Festival Headliner</h3>
+                        <p class="story-meta">Maya Rodriguez • Electronic • Los Angeles</p>
+                        <p>After years of releasing music that got lost in the algorithm, Maya found her audience through Stamp's direct-to-fan approach.</p>
+                        <a href="#" class="btn-outline">Read Full Story</a>
+                    </div>
+                </div>
+                
+                <div class="story-card">
+                    <div class="story-image" style="background-image: url('https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')"></div>
+                    <div class="story-content">
+                        <h3>Building a Global Fanbase Without a Label</h3>
+                        <p class="story-meta">The Midnight Echoes • Indie Rock • London</p>
+                        <p>This four-piece band went from playing empty pubs to selling out venues across Europe by connecting directly with their most passionate fans.</p>
+                        <a href="#" class="btn-outline">Read Full Story</a>
+                    </div>
+                </div>
+                
+                <div class="story-card">
+                    <div class="story-image" style="background-image: url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')"></div>
+                    <div class="story-content">
+                        <h3>Finding Creative Freedom After Major Label Constraints</h3>
+                        <p class="story-meta">James Wilson • R&B/Soul • Atlanta</p>
+                        <p>After feeling creatively stifled at a major label, James took control of his career and found both artistic and financial success on his own terms.</p>
+                        <a href="#" class="btn-outline">Read Full Story</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <div class="return-home-container">
+            <a href="index.html" class="return-home-link"><i class="fas fa-arrow-left"></i> Return to Home</a>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Company</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="press.html">Press</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="help.html">Help Center</a></li>
+                    <li><a href="artist-guide.html">Artist Guide</a></li>
+                    <li><a href="fan-guide.html">Fan Guide</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="terms.html">Terms of Service</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="copyright.html">Copyright Info</a></li>
+                    <li><a href="cookies.html">Cookie Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Connect</h3>
+                <div class="social-links">
+                    <a href="https://twitter.com/stampfm" target="_blank"><i class="fab fa-twitter"></i></a>
+                    <a href="https://instagram.com/stampfm" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://facebook.com/stampfm" target="_blank"><i class="fab fa-facebook"></i></a>
+                    <a href="https://discord.gg/stampfm" target="_blank"><i class="fab fa-discord"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="/js/colors.js"></script>
+    <script type="module" src="/js/retro.js"></script>
+    <script>
+        function checkAuth() {
+            const token = localStorage.getItem('authToken');
+            const user = JSON.parse(localStorage.getItem('user') || '{}');
+            const loginButton = document.getElementById('loginButton');
+            const dashboardButton = document.getElementById('dashboardButton');
+            const welcomeSpan = document.getElementById('user-welcome');
+    
+            if (token && user && user.name) {
+                loginButton.style.display = 'none';
+                dashboardButton.style.display = 'block';
+                welcomeSpan.textContent = `Welcome, ${user.name}`;
+            } else {
+                loginButton.style.display = 'block';
+                dashboardButton.style.display = 'none';
+                welcomeSpan.textContent = '';
+            }
+        }
+    
+        function logout() {
+            localStorage.removeItem('authToken');
+            localStorage.removeItem('user');
+            checkAuth();
+            window.location.href = 'index.html';
+        }
+    
+        window.addEventListener('load', checkAuth);
+        window.addEventListener('storage', function(e) {
+            if (e.key === 'authToken' || e.key === 'user') {
+                checkAuth();
+            }
+        });
+
+        function toggle90sMode() {
+            const body = document.body;
+            body.classList.toggle('nineties-mode');
+            
+            document.querySelectorAll('.nineties-gif, .nineties-gif-container').forEach(el => el.remove());
+            
+            const matrixBanner = document.getElementById('matrix-banner');
+            if (body.classList.contains('nineties-mode')) {
+                matrixBanner.style.display = 'block';
+                
+                setTimeout(() => {
+                    matrixBanner.style.display = 'none';
+                }, 3000);
+            } else {
+                matrixBanner.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html> 

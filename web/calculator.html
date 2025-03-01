@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stream Calculator - Stamp</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="/styles/retro.css">
+</head>
+<body>
+    <div class="page-header">
+        <h1>How Many Streams?</h1>
+        <p class="subtitle">Calculate how many streams an artist needs to earn enough for basic needs</p>
+    </div>
+
+    <div class="calculator-container">
+        <div class="calculator-section">
+            <div class="calculator-intro">
+                <h2>Stream Calculator</h2>
+                <p>Artists earn approximately $0.004 per stream on major platforms. See how many streams it takes to earn enough for common expenses.</p>
+            </div>
+
+            <div class="preset-amounts">
+                <h3>Click on a Common Expense & See How Many Streams You Need To Pay For It!</h3>
+                <div class="preset-grid">
+                    <button class="preset-btn" data-amount="5">
+                        <span class="amount">$5</span>
+                        <span class="label">Cup of Coffee</span>
+                    </button>
+                    <button class="preset-btn" data-amount="50">
+                        <span class="amount">$50</span>
+                        <span class="label">Plugin</span>
+                    </button>
+                    <button class="preset-btn" data-amount="500">
+                        <span class="amount">$500</span>
+                        <span class="label">Professional Mix</span>
+                    </button>
+                    <button class="preset-btn" data-amount="1500">
+                        <span class="amount">$1,500</span>
+                        <span class="label">New Synth</span>
+                    </button>
+                    <button class="preset-btn" data-amount="30000">
+                        <span class="amount">$30,000</span>
+                        <span class="label">Annual Wage</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="custom-calculator">
+                <h3>Custom Amount</h3>
+                <div class="calculator-input">
+                    <span class="currency-symbol">$</span>
+                    <input type="number" id="customAmount" placeholder="Enter amount" min="0" step="0.01">
+                    <button class="calculate-btn">Calculate</button>
+                </div>
+            </div>
+
+            <div class="calculation-result" style="display: none;">
+                <div class="result-card">
+                    <h3>Required Streams</h3>
+                    <div class="streams-number" id="streamsRequired">0</div>
+                    <div class="result-details">
+                        <p>At $0.004 per stream, an artist would need this many streams to earn $<span id="targetAmount">0</span></p>
+                        <div class="time-estimate">
+                            <p>If each song is 3 minutes long, that's:</p>
+                            <ul>
+                                <li><span id="totalMinutes">0</span> minutes of listening time</li>
+                                <li><span id="totalHours">0</span> hours of continuous play</li>
+                                <li><span id="totalDays">0</span> days of non-stop music</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <div class="info-card">
+                <h3>Why This Matters</h3>
+                <p>The current streaming model makes it incredibly difficult for artists to earn a living wage from their music alone. This calculator helps illustrate the challenge artists face in the modern streaming economy.</p>
+                <a href="why-it-matters.html" class="learn-more-btn">Learn More</a>
+            </div>
+        </div>
+    </div>
+    <div class="return-home-container">
+        <a href="index.html" class="return-home-link"><i class="fas fa-arrow-left"></i> Return to Home</a>
+    </div>
+
+    <script type="module" src="/js/colors.js"></script>
+    <script type="module" src="/js/retro.js"></script>
+    <script src="/js/includes.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/calculator.js"></script>
+    <script src="/js/retro-mode.js"></script>
+</body>
+</html> 

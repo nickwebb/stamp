@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Stamp</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="/styles/auth.css">
+    <script>
+        window.config = {
+            apiUrl: 'https://stamp-api.nickwebb.workers.dev'
+        };
+    </script>
+    <script src="/js/includes.js"></script>
+</head>
+<body>
+    <header class="top-header">
+        <div class="header-container">
+            <div class="header-left">
+                <a href="index.html" class="home-link">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+                <span id="user-welcome"></span>
+            </div>
+            <div class="header-right">
+                <button class="login-btn" id="loginButton" onclick="window.location.href='login.html'">Sign Up / Login</button>
+                <button class="login-btn" id="dashboardButton" onclick="window.location.href='dashboard.html'" style="display: none;">Dashboard</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="auth-container">
+        <div class="auth-box">
+            <div class="auth-header">
+                <h2>Welcome Back</h2>
+                <a href="/index.html" class="logo-small">Stamp</a>
+            </div>
+            
+            <form id="loginForm" class="auth-form">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                
+                <button type="submit" class="btn auth-btn">Login</button>
+                
+                <div class="auth-links">
+                    <a href="#" id="forgotPassword">Forgot Password?</a>
+                    <a href="#" id="toggleSignup">Need an account? Sign up</a>
+                </div>
+            </form>
+
+            <form id="signupForm" class="auth-form hidden">
+                <div class="form-group">
+                    <label for="signupName">Full Name</label>
+                    <input type="text" id="signupName" name="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="signupEmail">Email</label>
+                    <input type="email" id="signupEmail" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" name="password" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" required>
+                </div>
+                
+                <button type="submit" class="btn auth-btn">Create Account</button>
+                
+                <div class="auth-links">
+                    <a href="#" id="toggleLogin">Already have an account? Login</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="social-links">
+        <a href="https://twitter.com/stampfm" target="_blank"><i class="fab fa-twitter"></i></a>
+        <a href="https://instagram.com/stampfm" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://facebook.com/stampfm" target="_blank"><i class="fab fa-facebook"></i></a>
+        <a href="https://discord.gg/stampfm" target="_blank"><i class="fab fa-discord"></i></a>
+    </div>
+
+    <script type="module" src="/js/colors.js"></script>
+    <script type="module" src="/js/retro.js"></script>
+    <script type="module" src="/js/auth.js"></script>
+    <script type="module" src="/js/login.js"></script>
+</body>
+</html> 

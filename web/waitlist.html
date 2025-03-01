@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join the Waiting List - Stamp</title>
+    
+    <!-- Meta tags for SEO -->
+    <meta name="description" content="Join Stamp's waiting list to be among the first to experience a revolutionary music platform that puts artists and fans first.">
+    <meta name="keywords" content="waiting list, music platform, early access, artist platform">
+    
+    <!-- Stylesheets -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="/styles/retro.css">
+</head>
+<body>
+    <div class="page-header">
+        <h1>Join the Waiting List</h1>
+    </div>
+
+    <div class="page-content">
+        <div class="waitlist-container">
+            <div class="waitlist-info">
+                <h2>Be the First to Experience Stamp</h2>
+                <p>We're building a new kind of music platform that puts artists and fans first. Join our waiting list to get early access when we launch and stay updated on our progress.</p>
+                
+                <div class="waitlist-features">
+                    <div class="feature-item">
+                        <i class="fas fa-rocket"></i>
+                        <h3>Early Access</h3>
+                        <p>Be among the first to experience Stamp when we launch.</p>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <i class="fas fa-envelope"></i>
+                        <h3>Exclusive Updates</h3>
+                        <p>Receive insider news and development updates.</p>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <i class="fas fa-gift"></i>
+                        <h3>Special Perks</h3>
+                        <p>Get access to special features and promotions for early adopters.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="waitlist-form-container">
+                <form id="waitlistForm" class="waitlist-form">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="artistName">Artist Name</label>
+                        <input type="text" id="artistName" name="artistName" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="comments">Anything else you'd like to share with us?</label>
+                        <textarea id="comments" name="comments" rows="3"></textarea>
+                    </div>
+                    
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="newsletter" name="newsletter" checked>
+                        <label for="newsletter">I'd like to receive updates about Stamp's progress and launch</label>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Join the Waiting List</button>
+                </form>
+                
+                <div id="thankYouMessage" class="thank-you-message" style="display: none;">
+                    <i class="fas fa-check-circle"></i>
+                    <h2>Thank you!</h2>
+                    <p>We've added you to our waiting list. We'll be in touch with updates and will notify you when Stamp is ready for you to join!</p>
+                    <a href="index.html" class="btn">Back to Home</a>
+                </div>
+            </div>
+        </div>
+        <div class="return-home-container">
+            <a href="index.html" class="return-home-link"><i class="fas fa-arrow-left"></i> Return to Home</a>
+        </div>
+    </div>
+
+    <!-- Debug Information (only visible in development) -->
+    <div id="debugInfo" style="
+        display: none;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: #f8f9fa;
+        border-top: 2px solid #dee2e6;
+        padding: 1rem;
+        font-family: monospace;
+        font-size: 12px;
+        max-height: 200px;
+        overflow-y: auto;
+        z-index: 9999;
+    "></div>
+
+    <script type="module" src="/js/colors.js"></script>
+    <script type="module" src="/js/retro.js"></script>
+    <script type="module" src="/js/includes.js"></script>
+    <script type="module" src="/js/waitlist.js"></script>
+</body>
+</html> 

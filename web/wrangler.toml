@@ -1,0 +1,34 @@
+name = "stamp-api"
+main = "server/worker.js"
+compatibility_date = "2024-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+[durable_objects]
+bindings = [
+  { name = "CHAT_ROOM", class_name = "ChatRoom" }
+]
+
+[[migrations]]
+tag = "v1"
+new_classes = ["ChatRoom"]
+
+# Add D1 database configuration
+[[d1_databases]]
+binding = "DB"
+database_name = "stamp-db"
+database_id = "1d73e6d7-4fc2-4ee1-a205-65ad49b53b6f"
+
+# Add these settings for WebSocket support
+[triggers]
+crons = []
+
+[env.production]
+workers_dev = true
+
+# Enable WebSocket support
+[env.production.handlers]
+websocket = true
+
+[observability]
+enabled = true
+head_sampling_rate = 1 

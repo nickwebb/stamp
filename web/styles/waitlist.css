@@ -1,0 +1,49 @@
+/* Specific styles for waitlist page */
+.waitlist-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.waitlist-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+/* Add more specific styles */
+
+.error-message {
+    background-color: #fee;
+    color: #c00;
+    padding: 12px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+.error-message i {
+    margin-right: 8px;
+}
+
+.input-error {
+    color: #c00;
+    font-size: 0.875rem;
+    margin-top: 4px;
+}
+
+input.invalid {
+    border-color: #c00;
+}
+
+#waitlistForm, #thankYouMessage {
+    transition: opacity 0.3s;
+}
+
+button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+} 

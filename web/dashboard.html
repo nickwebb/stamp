@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#121212">
+    <meta name="description" content="Stamp Artist Dashboard - Manage your content, engage with fans, and track insights">
+    
+    <title>Artist Dashboard - Stamp</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    
+    <!-- Preload critical assets -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- Stylesheets -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="/styles/dashboard.css">
+    
+    <!-- Load includes.js first -->
+    <script src="/js/includes.js"></script>
+</head>
+<body>
+    <!-- Add loading state -->
+    <div id="loading-overlay" class="loading-overlay">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <div class="dashboard-container">
+        <!-- Sidebar component -->
+        <div id="sidebar-container" aria-label="Dashboard Navigation"></div>
+
+        <!-- Main content area -->
+        <main class="dashboard-content">
+            <div id="tab-content" role="main" aria-live="polite"></div>
+        </main>
+    </div>
+
+    <!-- Mobile navigation -->
+    <nav id="mobile-nav-container" aria-label="Mobile Navigation"></nav>
+
+    <!-- Load Chart.js before our scripts that might use it -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Our application scripts -->
+    <script type="module" src="/js/auth.js"></script>
+    <script type="module" src="/js/dashboard.js"></script>
+</body>
+</html> 

@@ -1,0 +1,241 @@
+/* Calculator Page Styles */
+.page-header {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: linear-gradient(to right, var(--primary), var(--secondary));
+}
+
+.page-header h1 {
+    color: white;
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.2rem;
+}
+
+/* Calculator Layout */
+.calculator-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.calculator-section {
+    background: var(--surface);
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.calculator-intro {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+/* Preset Amounts */
+.preset-amounts {
+    margin-bottom: 3rem;
+}
+
+.preset-amounts h3 {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.preset-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.preset-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.5rem;
+    background: var(--surface-alt);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.preset-btn:hover {
+    transform: translateY(-2px);
+    border-color: var(--primary);
+}
+
+.preset-btn .amount {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+}
+
+.preset-btn .label {
+    color: var(--text-secondary);
+}
+
+/* Custom Calculator */
+.custom-calculator {
+    margin-bottom: 3rem;
+}
+
+.custom-calculator h3 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.calculator-input {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.currency-symbol {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.calculator-input input {
+    flex: 1;
+    padding: 0.75rem;
+    border: 2px solid var(--border);
+    border-radius: 4px;
+    font-size: 1.2rem;
+    background: var(--surface-alt);
+    color: var(--text-primary);
+}
+
+.calculator-input input:focus {
+    border-color: var(--primary);
+    outline: none;
+}
+
+.calculate-btn {
+    padding: 0.75rem 1.5rem;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.calculate-btn:hover {
+    background: var(--primary-dark);
+}
+
+/* Results Display */
+.calculation-result {
+    display: none;
+    margin-top: 3rem;
+}
+
+.calculation-result.visible {
+    display: block;
+    animation: slideUp 0.5s ease;
+}
+
+.result-card {
+    background: var(--surface-alt);
+    padding: 2rem;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.streams-number {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin: 1rem 0;
+}
+
+.result-details {
+    margin-top: 2rem;
+}
+
+.time-estimate {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+}
+
+.time-estimate ul {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0;
+}
+
+.time-estimate li {
+    margin: 0.5rem 0;
+    color: var(--text-secondary);
+}
+
+/* Info Section */
+.info-section {
+    margin-top: 3rem;
+}
+
+.info-card {
+    background: var(--surface);
+    padding: 2rem;
+    border-radius: 8px;
+    text-align: center;
+}
+
+/* Utility Classes */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+/* Animations */
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .page-header {
+        padding: 2rem 1rem;
+    }
+
+    .page-header h1 {
+        font-size: 2rem;
+    }
+
+    .calculator-container {
+        padding: 1rem;
+    }
+
+    .calculator-section {
+        padding: 1rem;
+    }
+
+    .preset-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .calculator-input {
+        flex-direction: column;
+    }
+
+    .streams-number {
+        font-size: 2rem;
+    }
+} 
