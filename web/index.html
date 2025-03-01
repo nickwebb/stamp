@@ -70,7 +70,7 @@
                 <p>Have an Artist invite code?</p>
                 <div class="invite-input-container">
                     <input type="text" id="inviteCodeInput" placeholder="Enter your invite code">
-                    <button class="btn" onclick="handleInviteCode()">Submit</button>
+                    <button class="btn">Submit</button>
                 </div>
                 <p id="inviteCodeError" class="error-message" style="display: none; color: var(--neon-pink); margin-top: 0.5rem; font-size: 0.9rem;"></p>
             </div>
@@ -251,7 +251,7 @@
           observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
       })();
     </script>
-    <script src="/js/includes.js"></script>
+    <script src="/js/includes.js" type="module"></script>
     <!-- Scripts moved to end of body -->
     <script type="module" src="/js/main.js"></script>
     <script type="module" src="/js/colors.js"></script>

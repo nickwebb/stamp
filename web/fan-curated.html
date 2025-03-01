@@ -122,41 +122,11 @@
         </div>
     </footer>
 
+    <script src="/js/includes.js" type="module"></script>
     <script type="module" src="/js/colors.js"></script>
     <script type="module" src="/js/retro.js"></script>
+    <script type="module" src="/js/auth.js"></script>
     <script>
-        function checkAuth() {
-            const token = localStorage.getItem('authToken');
-            const user = JSON.parse(localStorage.getItem('user') || '{}');
-            const loginButton = document.getElementById('loginButton');
-            const dashboardButton = document.getElementById('dashboardButton');
-            const welcomeSpan = document.getElementById('user-welcome');
-    
-            if (token && user && user.name) {
-                loginButton.style.display = 'none';
-                dashboardButton.style.display = 'block';
-                welcomeSpan.textContent = `Welcome, ${user.name}`;
-            } else {
-                loginButton.style.display = 'block';
-                dashboardButton.style.display = 'none';
-                welcomeSpan.textContent = '';
-            }
-        }
-    
-        function logout() {
-            localStorage.removeItem('authToken');
-            localStorage.removeItem('user');
-            checkAuth();
-            window.location.href = 'index.html';
-        }
-    
-        window.addEventListener('load', checkAuth);
-        window.addEventListener('storage', function(e) {
-            if (e.key === 'authToken' || e.key === 'user') {
-                checkAuth();
-            }
-        });
-
         function toggle90sMode() {
             const body = document.body;
             body.classList.toggle('nineties-mode');

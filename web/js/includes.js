@@ -1,3 +1,5 @@
+import { updateHeaderButtons } from './auth.js';
+
 document.addEventListener('DOMContentLoaded', function() {
     console.log('Includes.js: Starting to load header/footer');
     
@@ -19,6 +21,11 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             
             document.dispatchEvent(new Event('componentLoaded'));
+            
+            // Update header buttons after header is loaded
+            if (url.includes('header.html')) {
+                updateHeaderButtons();
+            }
         } catch (error) {
             console.error(`Error loading ${url}:`, error);
         }

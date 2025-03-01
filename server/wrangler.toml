@@ -1,0 +1,39 @@
+name = "stamp-api"
+main = "worker.js"
+compatibility_date = "2024-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+# JWT_SECRET is set as a secret, not here in the config
+
+# Add your MongoDB URI as a secret using:
+# wrangler secret put MONGODB_URI
+
+# Remove the routes section if you're using workers.dev domain
+# [[routes]]
+# pattern = "/api/*"
+# zone_id = "your_zone_id"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "stamp-db"
+database_id = "1d73e6d7-4fc2-4ee1-a205-65ad49b53b6f"
+
+# Remove D1 section since we're using MongoDB
+# [[d1_databases]]
+# binding = "DB"
+# database_name = "stamp-db"
+# database_id = "YOUR_DATABASE_ID"
+
+[observability]
+enabled = true
+head_sampling_rate = 1
+
+[durable_objects]
+bindings = [
+  { name = "CHAT_ROOM", class_name = "ChatRoom" }
+]
+
+[[migrations]]
+tag = "v1"
+new_classes = ["ChatRoom"] 

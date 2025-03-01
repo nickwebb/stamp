@@ -1,0 +1,495 @@
+export class ChatRoom {
+    constructor(state, env) {
+        this.state = state;
+        this.env = env;
+        this.sessions = new Map();
+    }
+
+    async fetch(request) {
+        try {
+            console.log('ChatRoom fetch called');
+            
+            if (request.headers.get('Upgrade') !== 'websocket') {
+                return new Response('Expected websocket', { status: 400 });
+            }
+
+            const pair = new WebSocketPair();
+            const [client, server] = Object.values(pair);
+
+            // Accept the connection
+            server.accept();
+            
+            const sessionId = crypto.randomUUID();
+            console.log(`New connection accepted: ${sessionId}`);
+            
+            // Store the session
+            this.sessions.set(sessionId, {
+                socket: server,
+                authenticated: false,
+                user: null
+            });
+
+            server.addEventListener('message', async (event) => {
+                try {
+                    const data = JSON.parse(event.data);
+                    console.log(`Received message from ${sessionId}:`, data);
+
+                    if (data.type === 'auth') {
+                        // Store user info with the session
+                        const session = this.sessions.get(sessionId);
+                        session.authenticated = true;
+                        session.user = data.user;
+                        
+                        // Send confirmation
+                        server.send(JSON.stringify({
+                            type: 'system',
+                            text: `Connected (${this.sessions.size} active users)`
+                        }));
+
+                        // Broadcast user joined
+                        this.broadcast({
+                            type: 'system',
+                            text: `${data.user.name} joined the chat`
+                        }, sessionId);
+
+                    } else if (data.type === 'message') {
+                        // Only allow messages from authenticated sessions
+                        const session = this.sessions.get(sessionId);
+                        if (!session?.authenticated) {
+                            console.log('Unauthenticated message attempt');
+                            return;
+                        }
+
+                        console.log(`Broadcasting message from ${sessionId} to ${this.sessions.size} users`);
+                        this.broadcast(data, sessionId);
+                    }
+                } catch (err) {
+                    console.error(`Error handling message from ${sessionId}:`, err);
+                }
+            });
+
+            server.addEventListener('close', () => {
+                const session = this.sessions.get(sessionId);
+                if (session?.user) {
+                    this.broadcast({
+                        type: 'system',
+                        text: `${session.user.name} left the chat`
+                    }, sessionId);
+                }
+                console.log(`Connection closed: ${sessionId}`);
+                this.sessions.delete(sessionId);
+            });
+
+            server.addEventListener('error', (err) => {
+                console.error(`WebSocket error for ${sessionId}:`, err);
+                this.sessions.delete(sessionId);
+            });
+
+            return new Response(null, {
+                status: 101,
+                webSocket: client,
+                headers: {
+                    'Upgrade': 'websocket',
+                    'Connection': 'Upgrade'
+                }
+            });
+
+        } catch (err) {
+            console.error('Error in ChatRoom:', err);
+            return new Response('Internal Server Error', { status: 500 });
+        }
+    }
+
+    broadcast(message, excludeId = null) {
+        console.log(`Broadcasting to ${this.sessions.size} sessions, excluding ${excludeId}`);
+        let delivered = 0;
+
+        for (const [id, session] of this.sessions.entries()) {
+            if (id !== excludeId && session.socket.readyState === 1) {
+                try {
+                    session.socket.send(JSON.stringify(message));
+                    delivered++;
+                } catch (err) {
+                    console.error(`Failed to send to ${id}:`, err);
+                    this.sessions.delete(id);
+                }
+            }
+        }
+        console.log(`Broadcast complete. Delivered to ${delivered} sessions`);
+    }
+}
+
+export default {
+    async fetch(request, env) {
+        const corsHeaders = {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+            'Access-Control-Allow-Headers': '*'
+        };
+
+        // Handle OPTIONS
+        if (request.method === 'OPTIONS') {
+            return new Response(null, { headers: corsHeaders });
+        }
+
+        const url = new URL(request.url);
+        console.log('Incoming request to:', url.pathname);
+
+        // Add these new chat endpoints
+        // Handle sending messages
+        if (url.pathname === '/api/chat/send' && request.method === 'POST') {
+            try {
+                const authHeader = request.headers.get('Authorization');
+                console.log('Auth header:', authHeader); // Debug log
+
+                if (!authHeader || !authHeader.startsWith('Bearer ')) {
+                    return new Response(JSON.stringify({ 
+                        message: 'Unauthorized', 
+                        error: 'Missing or invalid Authorization header' 
+                    }), {
+                        status: 401,
+                        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+                    });
+                }
+
+                const token = authHeader.split(' ')[1];
+                console.log('Attempting to verify token:', token.substring(0, 20) + '...'); // Debug log
+
+                let payload;
+                try {
+                    payload = await verifyJWT(token, env.JWT_SECRET);
+                } catch (jwtError) {
+                    return new Response(JSON.stringify({ 
+                        message: 'Unauthorized', 
+                        error: jwtError.message 
+                    }), {
+                        status: 401,
+                        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+                    });
+                }
+
+                const { message } = await request.json();
+                const userId = payload.userId;
+
+                // Store message in D1
+                await env.DB.prepare(
+                    'INSERT INTO messages (user_id, content, created_at) VALUES (?, ?, ?)'
+                ).bind(userId, message, new Date().toISOString()).run();
+
+                return new Response(JSON.stringify({
+                    success: true,
+                    message: 'Message sent successfully'
+                }), {
+                    headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+                });
+            } catch (error) {
+                console.error('Chat send error:', error);
+                return new Response(JSON.stringify({
+                    message: 'Server error',
+                    error: error.message,
+                    stack: error.stack // Remove this in production
+                }), {
+                    status: 500,
+                    headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+                });
+            }
+        }
+
+        // Handle fetching messages
+        if (url.pathname === '/api/chat/messages' && request.method === 'GET') {
+            try {
+                // Verify JWT token (same as above)
+                const authHeader = request.headers.get('Authorization');
+                if (!authHeader || !authHeader.startsWith('Bearer ')) {
+                    return new Response(JSON.stringify({ message: 'Unauthorized' }), {
+                        status: 401,
+                        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+                    });
+                }
+
+                const messages = await env.DB.prepare(
+                    'SELECT m.*, u.name as sender_name FROM messages m JOIN users u ON m.user_id = u.id ORDER BY m.created_at DESC LIMIT 50'
+                ).all();
+
+                return new Response(JSON.stringify({
+                    success: true,
+                    messages: messages.results.reverse()
+                }), {
+                    headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+                });
+            } catch (error) {
+                console.error('Chat fetch error:', error);
+                return new Response(JSON.stringify({
+                    message: 'Server error',
+                    error: error.message
+                }), {
+                    status: 500,
+                    headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+                });
+            }
+        }
+
+        try {
+            // Handle health check
+            if (url.pathname === '/api/health') {
+                return new Response('OK', {
+                    headers: { ...corsHeaders }
+                });
+            }
+
+            // Handle authentication endpoints
+            if (url.pathname === '/api/auth/login' && request.method === 'POST') {
+                const { email, password } = await request.json();
+                console.log('Processing login for:', email);
+
+                // Find user
+                const user = await env.DB.prepare(
+                    'SELECT * FROM users WHERE email = ?'
+                ).bind(email).first();
+
+                if (!user || !(await comparePassword(password, user.password))) {
+                    return new Response(
+                        JSON.stringify({ message: 'Invalid credentials' }),
+                        { 
+                            status: 401,
+                            headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+                        }
+                    );
+                }
+
+                const token = await createJWT({ userId: user.id }, env.JWT_SECRET);
+                return new Response(
+                    JSON.stringify({
+                        token,
+                        user: {
+                            id: user.id,
+                            name: user.name,
+                            email: user.email
+                        }
+                    }),
+                    { 
+                        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+                    }
+                );
+            }
+
+            if (url.pathname === '/api/auth/register' && request.method === 'POST') {
+                const { name, email, password } = await request.json();
+                console.log('Processing registration for:', email);
+
+                // Check if user exists
+                const existing = await env.DB.prepare(
+                    'SELECT * FROM users WHERE email = ?'
+                ).bind(email).first();
+
+                if (existing) {
+                    return new Response(
+                        JSON.stringify({ message: 'User already exists' }),
+                        { 
+                            status: 400,
+                            headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+                        }
+                    );
+                }
+
+                const hashedPassword = await hashPassword(password);
+                const result = await env.DB.prepare(
+                    'INSERT INTO users (name, email, password) VALUES (?, ?, ?)'
+                ).bind(name, email, hashedPassword).run();
+
+                const token = await createJWT(
+                    { userId: result.lastRowId },
+                    env.JWT_SECRET
+                );
+
+                return new Response(
+                    JSON.stringify({
+                        token,
+                        user: { 
+                            id: result.lastRowId,
+                            name,
+                            email
+                        }
+                    }),
+                    { 
+                        status: 201,
+                        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+                    }
+                );
+            }
+
+            // Handle WebSocket upgrade for chat
+            if (url.pathname === '/api/chat' && request.headers.get('Upgrade') === 'websocket') {
+                const id = env.CHAT_ROOM.idFromName('default');
+                const room = env.CHAT_ROOM.get(id);
+                return room.fetch(request);
+            }
+
+            // 404 for everything else
+            console.log('No route matched for:', url.pathname);
+            return new Response('Not Found', { 
+                status: 404,
+                headers: corsHeaders
+            });
+        } catch (err) {
+            console.error('Worker error:', err.stack);
+            return new Response('Internal Server Error', { 
+                status: 500,
+                headers: corsHeaders
+            });
+        }
+    }
+};
+
+// Helper functions for password hashing and JWT
+async function hashPassword(password) {
+    const encoder = new TextEncoder();
+    const salt = crypto.getRandomValues(new Uint8Array(16));
+    const passwordData = encoder.encode(password);
+    
+    const combinedData = new Uint8Array(salt.length + passwordData.length);
+    combinedData.set(salt);
+    combinedData.set(passwordData, salt.length);
+    
+    const hash = await crypto.subtle.digest('SHA-256', combinedData);
+    const hashArray = new Uint8Array(hash);
+    
+    const combined = new Uint8Array(salt.length + hashArray.length);
+    combined.set(salt);
+    combined.set(hashArray, salt.length);
+    
+    return btoa(String.fromCharCode(...combined));
+}
+
+async function comparePassword(password, storedHash) {
+    try {
+        const encoder = new TextEncoder();
+        const hashData = Uint8Array.from(atob(storedHash), c => c.charCodeAt(0));
+        
+        const salt = hashData.slice(0, 16);
+        const storedHashPart = hashData.slice(16);
+        
+        const passwordData = encoder.encode(password);
+        const combinedData = new Uint8Array(salt.length + passwordData.length);
+        combinedData.set(salt);
+        combinedData.set(passwordData, salt.length);
+        
+        const newHash = await crypto.subtle.digest('SHA-256', combinedData);
+        const newHashArray = new Uint8Array(newHash);
+        
+        if (storedHashPart.length !== newHashArray.length) return false;
+        
+        for (let i = 0; i < storedHashPart.length; i++) {
+            if (storedHashPart[i] !== newHashArray[i]) return false;
+        }
+        
+        return true;
+    } catch (error) {
+        console.error('Error comparing passwords:', error);
+        return false;
+    }
+}
+
+async function createJWT(payload, secret) {
+    if (!secret) throw new Error('JWT configuration error');
+    
+    try {
+        const encoder = new TextEncoder();
+        const header = { alg: 'HS256', typ: 'JWT' };
+        
+        const encodedHeader = btoa(JSON.stringify(header));
+        const encodedPayload = btoa(JSON.stringify(payload));
+        
+        const key = await crypto.subtle.importKey(
+            'raw',
+            encoder.encode(secret),
+            { name: 'HMAC', hash: 'SHA-256' },
+            false,
+            ['sign']
+        );
+        
+        const signature = await crypto.subtle.sign(
+            'HMAC',
+            key,
+            encoder.encode(`${encodedHeader}.${encodedPayload}`)
+        );
+        
+        const encodedSignature = btoa(String.fromCharCode(...new Uint8Array(signature)));
+        
+        return `${encodedHeader}.${encodedPayload}.${encodedSignature}`;
+    } catch (error) {
+        console.error('JWT creation error:', error);
+        throw new Error('Failed to create authentication token');
+    }
+}
+
+// Update the verifyJWT function to match your createJWT implementation
+async function verifyJWT(token, secret) {
+    try {
+        const [encodedHeader, encodedPayload, encodedSignature] = token.split('.');
+        
+        // Decode payload first to check if token is well-formed
+        const payload = JSON.parse(atob(encodedPayload));
+        
+        const encoder = new TextEncoder();
+        const key = await crypto.subtle.importKey(
+            'raw',
+            encoder.encode(secret),
+            { name: 'HMAC', hash: 'SHA-256' },
+            false,
+            ['verify']
+        );
+
+        // Verify signature using the same method as creation
+        const signatureValid = await crypto.subtle.verify(
+            'HMAC',
+            key,
+            Uint8Array.from(atob(encodedSignature), c => c.charCodeAt(0)),
+            encoder.encode(`${encodedHeader}.${encodedPayload}`)
+        );
+
+        if (!signatureValid) {
+            console.error('JWT signature verification failed');
+            throw new Error('Invalid signature');
+        }
+
+        return payload;
+    } catch (error) {
+        console.error('JWT verification error:', error);
+        throw new Error('Invalid token');
+    }
+}
+
+addEventListener('fetch', event => {
+  if (event.request.headers.get('Upgrade') === 'websocket') {
+    // Handle WebSocket upgrade
+    return handleWebSocket(event);
+  } else {
+    // Handle regular HTTP requests
+    return handleRequest(event);
+  }
+});
+
+async function handleWebSocket(event) {
+  const pair = new WebSocketPair();
+  const [client, server] = Object.values(pair);
+
+  // Accept the WebSocket connection
+  server.accept();
+
+  // Handle the connection in your ChatRoom Durable Object
+  const chatRoom = await getChatRoom();
+  await chatRoom.handleConnection(server);
+
+  return new Response(null, {
+    status: 101,
+    webSocket: client,
+    headers: {
+      'Upgrade': 'websocket',
+      'Connection': 'Upgrade',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Headers': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS'
+    }
+  });
+} 

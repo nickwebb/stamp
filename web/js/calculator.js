@@ -58,8 +58,8 @@ function calculateStreams(amount) {
     streamsRequired.classList.add('animate');
 }
 
-// Event listeners
-document.addEventListener('DOMContentLoaded', () => {
+function setupEventListeners() {
+    // Set up preset button listeners
     document.querySelectorAll('.preset-btn').forEach(button => {
         button.addEventListener('click', function() {
             const amount = parseFloat(this.dataset.amount);
@@ -70,37 +70,38 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    document.querySelector('.calculate-btn').addEventListener('click', function() {
-        const amount = parseFloat(document.getElementById('customAmount').value);
-        if (!isNaN(amount) && amount > 0) {
-            calculateStreams(amount);
-            document.querySelector('.calculation-result').style.display = 'block';
-            scrollToResults();
-        }
-    });
-
-    document.getElementById('customAmount').addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            const amount = parseFloat(e.target.value);
-            if (amount > 0) {
+    // Set up calculate button listener
+    const calculateBtn = document.querySelector('.calculate-btn');
+    if (calculateBtn) {
+        calculateBtn.addEventListener('click', function() {
+            const amount = parseFloat(document.getElementById('customAmount').value);
+            if (!isNaN(amount) && amount > 0) {
                 calculateStreams(amount);
-            }
-        }
-    });
-});
-
-export function initCalculator() {
-    const calculatorForm = document.querySelector('.custom-calculator');
-    const presetButtons = document.querySelectorAll('.preset-btn');
-    
-    presetButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const amount = parseFloat(btn.dataset.amount);
-            if (!isNaN(amount)) {
-                calculateStreams(amount);
+                document.querySelector('.calculation-result').style.display = 'block';
+                scrollToResults();
             }
         });
-    });
-    
-    // Add more initialization code
-} 
+    }
+
+    // Set up custom amount input listener
+    const customAmount = document.getElementById('customAmount');
+    if (customAmount) {
+        customAmount.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                const amount = parseFloat(e.target.value);
+                if (!isNaN(amount) && amount > 0) {
+                    calculateStreams(amount);
+                    scrollToResults();
+                }
+            }
+        });
+    }
+}
+
+// Export the initialization function
+export function initCalculator() {
+    setupEventListeners();
+}
+
+// Initialize when DOM is ready
+document.addEventListener('DOMContentLoaded', initCalculator); 

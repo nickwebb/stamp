@@ -42,7 +42,4 @@ global.console = {
     log: jest.fn(),
     error: jest.fn(),
     warn: jest.fn()
-};
-
-// Make jest available globally
-global.jest = jest; 
+}; 

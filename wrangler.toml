@@ -1,0 +1,18 @@
+name = "stamp"
+main = "server/worker.js"
+compatibility_date = "2024-03-01"
+
+# Configure environment variables
+[vars]
+ENVIRONMENT = "production"
+
+# Configure R2 bucket for static assets (optional)
+[[r2_buckets]]
+binding = "ASSETS"
+bucket_name = "stamp-assets"
+preview_bucket_name = "stamp-assets-dev"
+
+# Configure routes
+[[routes]]
+pattern = "*/*"
+zone_name = "your-domain.com" 
